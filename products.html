@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop All — SOLE Premium Footwear</title>
+  <meta name="description" content="Browse SOLE's complete collection of premium sneakers, boots, loafers, sandals and formal shoes." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar">
+    <span>Free shipping on orders over ₹2999 &nbsp;|&nbsp; Use code <strong>SOLE10</strong> for 10% off</span>
+    <button class="announcement-close" aria-label="Close"><i class="fas fa-times"></i></button>
+  </div>
+
+  <!-- NAVIGATION -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="index.html" class="nav__logo">SOLE<span>.</span></a>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="index.html" class="nav__link">Home</a></li>
+        <li class="nav__dropdown">
+          <a href="products.html" class="nav__link active">Shop <i class="fas fa-chevron-down"></i></a>
+          <ul class="dropdown__menu">
+            <li><a href="products.html?cat=sneakers">Sneakers</a></li>
+            <li><a href="products.html?cat=boots">Boots</a></li>
+            <li><a href="products.html?cat=loafers">Loafers</a></li>
+            <li><a href="products.html?cat=sandals">Sandals</a></li>
+            <li><a href="products.html?cat=formal">Formal</a></li>
+            <li><a href="products.html">All Products</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html" class="nav__link">Story</a></li>
+        <li><a href="contact.html" class="nav__link">Contact</a></li>
+      </ul>
+      <div class="nav__actions">
+        <button class="nav__icon" id="searchToggle" aria-label="Search"><i class="fas fa-search"></i></button>
+        <a href="about.html" class="nav__icon" aria-label="Account"><i class="fas fa-user"></i></a>
+        <button class="nav__icon cart-btn" id="cartToggle" aria-label="Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="nav__hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+    <div class="search-bar" id="searchBar">
+      <div class="container">
+        <input type="text" placeholder="Search products..." id="searchInput" />
+        <button id="searchSubmit"><i class="fas fa-search"></i></button>
+        <button id="searchClose"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar__header">
+      <h3>Your Bag <span id="cartItemCount">(0)</span></h3>
+      <button id="cartClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-sidebar__body" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <i class="fas fa-shopping-bag"></i>
+        <p>Your bag is empty</p>
+        <a href="products.html" class="btn btn--primary">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-sidebar__footer" id="cartFooter" style="display:none;">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">₹0</span>
+      </div>
+      <p class="cart-note">Shipping & taxes calculated at checkout</p>
+      <a href="#" class="btn btn--primary btn--full">Checkout</a>
+      <a href="products.html" class="btn btn--outline btn--full">Continue Shopping</a>
+    </div>
+  </aside>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span class="current" id="breadcrumbCurrent">All Products</span>
+      </nav>
+      <h1 id="shopTitle">All Products</h1>
+      <p>Discover our complete collection of premium footwear</p>
+    </div>
+  </section>
+
+  <!-- SHOP LAYOUT -->
+  <div class="container">
+    <div class="shop-layout">
+      <!-- SIDEBAR -->
+      <aside class="shop-sidebar">
+        <div class="sidebar-widget">
+          <h3>Categories</h3>
+          <div class="sidebar-filter" id="categoryFilters">
+            <label><input type="checkbox" value="all" checked /> All Products</label>
+            <label><input type="checkbox" value="sneakers" /> Sneakers</label>
+            <label><input type="checkbox" value="boots" /> Boots</label>
+            <label><input type="checkbox" value="loafers" /> Loafers</label>
+            <label><input type="checkbox" value="sandals" /> Sandals</label>
+            <label><input type="checkbox" value="formal" /> Formal</label>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Price Range</h3>
+          <div class="price-range">
+            <input type="range" id="priceRange" min="1000" max="10000" value="10000" step="100" />
+            <div class="price-display">
+              <span>₹1,000</span>
+              <span id="priceMax">₹10,000</span>
+            </div>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Colors</h3>
+          <div class="color-swatches" id="colorSwatches">
+            <span class="color-swatch active" style="background:#0a0a0a;" data-color="#0a0a0a" title="Black"></span>
+            <span class="color-swatch" style="background:#f5f5f5;border:1px solid #ddd;" data-color="#f5f5f5" title="White"></span>
+            <span class="color-swatch" style="background:#c9a96e;" data-color="#c9a96e" title="Gold"></span>
+            <span class="color-swatch" style="background:#8B4513;" data-color="#8B4513" title="Brown"></span>
+            <span class="color-swatch" style="background:#dc143c;" data-color="#dc143c" title="Red"></span>
+          </div>
+        </div>
+        <div class="sidebar-widget">
+          <h3>Availability</h3>
+          <div class="sidebar-filter">
+            <label><input type="checkbox" value="sale" id="filterSale" /> On Sale</label>
+            <label><input type="checkbox" value="new" id="filterNew" /> New Arrivals</label>
+          </div>
+        </div>
+        <button class="btn btn--outline btn--sm btn--full" id="clearFilters">Clear All Filters</button>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="shop-main">
+        <div class="shop-toolbar">
+          <p>Showing <strong id="productCount">0</strong> products</p>
+          <select class="shop-sort" id="shopSort">
+            <option value="default">Sort by: Featured</option>
+            <option value="price-asc">Price: Low to High</option>
+            <option value="price-desc">Price: High to Low</option>
+            <option value="rating">Best Rated</option>
+            <option value="new">Newest First</option>
+          </select>
+        </div>
+        <div class="products__grid" id="shopGrid"></div>
+        <div class="pagination" id="pagination"></div>
+      </main>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="nav__logo footer__logo">SOLE<span>.</span></a>
+          <p>Premium footwear for every story. Crafted with intention, worn with pride.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="products.html">All Products</a></li>
+            <li><a href="products.html?cat=sneakers">Sneakers</a></li>
+            <li><a href="products.html?cat=boots">Boots</a></li>
+            <li><a href="products.html?cat=formal">Formal</a></li>
+          </ul>
+        </div>
+        <div class="footer__links">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">Size Guide</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Returns</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+          </ul>
+        </div>
+        <div class="footer__links">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+          <p><i class="fas fa-envelope"></i> hello@sole.store</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 SOLE. All rights reserved. Made with <i class="fas fa-heart"></i> in India.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+  <div class="toast" id="toast"></div>
+
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // ---- SHOP PAGE LOGIC ----
+    (function() {
+      const shopGrid = document.getElementById('shopGrid');
+      const productCount = document.getElementById('productCount');
+      const shopSort = document.getElementById('shopSort');
+      const priceRange = document.getElementById('priceRange');
+      const priceMax = document.getElementById('priceMax');
+      const clearFilters = document.getElementById('clearFilters');
+      const shopTitle = document.getElementById('shopTitle');
+      const breadcrumbCurrent = document.getElementById('breadcrumbCurrent');
+
+      const params = new URLSearchParams(window.location.search);
+      const urlCat = params.get('cat');
+      const urlQ = params.get('q');
+
+      let activeCategory = urlCat || 'all';
+      let sortBy = 'default';
+      let maxPrice = 10000;
+      let saleOnly = false;
+      let newOnly = false;
+      let searchQuery = urlQ || '';
+
+      // Set URL cat in sidebar
+      if (urlCat) {
+        document.querySelectorAll('#categoryFilters input').forEach(cb => {
+          cb.checked = cb.value === urlCat;
+        });
+        const title = urlCat.charAt(0).toUpperCase() + urlCat.slice(1);
+        if (shopTitle) shopTitle.textContent = title;
+        if (breadcrumbCurrent) breadcrumbCurrent.textContent = title;
+      }
+
+      function getFiltered() {
+        let list = [...PRODUCTS];
+        if (activeCategory !== 'all') list = list.filter(p => p.category === activeCategory);
+        if (maxPrice < 10000) list = list.filter(p => p.price <= maxPrice);
+        if (saleOnly) list = list.filter(p => p.sale);
+        if (newOnly) list = list.filter(p => p.new);
+        if (searchQuery) {
+          const q = searchQuery.toLowerCase();
+          list = list.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
+        }
+        switch (sortBy) {
+          case 'price-asc': list.sort((a, b) => a.price - b.price); break;
+          case 'price-desc': list.sort((a, b) => b.price - a.price); break;
+          case 'rating': list.sort((a, b) => b.rating - a.rating); break;
+          case 'new': list.sort((a, b) => (b.new ? 1 : 0) - (a.new ? 1 : 0)); break;
+        }
+        return list;
+      }
+
+      function renderShop() {
+        const list = getFiltered();
+        shopGrid.innerHTML = '';
+        if (productCount) productCount.textContent = list.length;
+        if (list.length === 0) {
+          shopGrid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:80px 20px;"><i class="fas fa-search" style="font-size:48px;color:#e8e8e8;margin-bottom:16px;display:block;"></i><p style="color:#666;font-size:18px;">No products found. Try adjusting your filters.</p></div>';
+          return;
+        }
+        list.forEach(p => {
+          const card = SOLE.createProductCard(p);
+          shopGrid.appendChild(card);
+        });
+        // Trigger fade-in
+        setTimeout(() => {
+          document.querySelectorAll('.fade-in').forEach(el => el.classList.add('visible'));
+        }, 50);
+      }
+
+      document.querySelectorAll('#categoryFilters input').forEach(cb => {
+        cb.addEventListener('change', () => {
+          if (cb.value === 'all') {
+            document.querySelectorAll('#categoryFilters input').forEach(c => { c.checked = c.value === 'all'; });
+            activeCategory = 'all';
+          } else {
+            document.querySelector('#categoryFilters input[value="all"]').checked = false;
+            const checked = [...document.querySelectorAll('#categoryFilters input:checked')].map(c => c.value);
+            activeCategory = checked.length === 1 ? checked[0] : 'all';
+          }
+          renderShop();
+        });
+      });
+
+      if (shopSort) shopSort.addEventListener('change', () => { sortBy = shopSort.value; renderShop(); });
+      if (priceRange) {
+        priceRange.addEventListener('input', () => {
+          maxPrice = parseInt(priceRange.value);
+          if (priceMax) priceMax.textContent = '₹' + maxPrice.toLocaleString('en-IN');
+          renderShop();
+        });
+      }
+
+      const filterSale = document.getElementById('filterSale');
+      const filterNew = document.getElementById('filterNew');
+      if (filterSale) filterSale.addEventListener('change', () => { saleOnly = filterSale.checked; renderShop(); });
+      if (filterNew) filterNew.addEventListener('change', () => { newOnly = filterNew.checked; renderShop(); });
+      if (clearFilters) {
+        clearFilters.addEventListener('click', () => {
+          activeCategory = 'all';
+          sortBy = 'default';
+          maxPrice = 10000;
+          saleOnly = false;
+          newOnly = false;
+          searchQuery = '';
+          if (shopSort) shopSort.value = 'default';
+          if (priceRange) priceRange.value = 10000;
+          if (priceMax) priceMax.textContent = '₹10,000';
+          if (filterSale) filterSale.checked = false;
+          if (filterNew) filterNew.checked = false;
+          document.querySelectorAll('#categoryFilters input').forEach(c => { c.checked = c.value === 'all'; });
+          renderShop();
+        });
+      }
+
+      renderShop();
+    })();
+  </script>
+</body>
+</html>

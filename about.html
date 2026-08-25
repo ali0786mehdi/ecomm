@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Our Story — SOLE Premium Footwear</title>
+  <meta name="description" content="Learn about SOLE's journey, values and commitment to crafting premium minimalist footwear." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar">
+    <span>Free shipping on orders over ₹2999 &nbsp;|&nbsp; Use code <strong>SOLE10</strong> for 10% off</span>
+    <button class="announcement-close" aria-label="Close"><i class="fas fa-times"></i></button>
+  </div>
+
+  <!-- NAVIGATION -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="index.html" class="nav__logo">SOLE<span>.</span></a>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="index.html" class="nav__link">Home</a></li>
+        <li class="nav__dropdown">
+          <a href="products.html" class="nav__link">Shop <i class="fas fa-chevron-down"></i></a>
+          <ul class="dropdown__menu">
+            <li><a href="products.html?cat=sneakers">Sneakers</a></li>
+            <li><a href="products.html?cat=boots">Boots</a></li>
+            <li><a href="products.html?cat=loafers">Loafers</a></li>
+            <li><a href="products.html?cat=sandals">Sandals</a></li>
+            <li><a href="products.html?cat=formal">Formal</a></li>
+            <li><a href="products.html">All Products</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html" class="nav__link active">Story</a></li>
+        <li><a href="contact.html" class="nav__link">Contact</a></li>
+      </ul>
+      <div class="nav__actions">
+        <button class="nav__icon" id="searchToggle" aria-label="Search"><i class="fas fa-search"></i></button>
+        <a href="#" class="nav__icon" aria-label="Account"><i class="fas fa-user"></i></a>
+        <button class="nav__icon cart-btn" id="cartToggle" aria-label="Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="nav__hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+    <div class="search-bar" id="searchBar">
+      <div class="container">
+        <input type="text" placeholder="Search products..." id="searchInput" />
+        <button id="searchSubmit"><i class="fas fa-search"></i></button>
+        <button id="searchClose"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar__header">
+      <h3>Your Bag <span id="cartItemCount">(0)</span></h3>
+      <button id="cartClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-sidebar__body" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <i class="fas fa-shopping-bag"></i>
+        <p>Your bag is empty</p>
+        <a href="products.html" class="btn btn--primary">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-sidebar__footer" id="cartFooter" style="display:none;">
+      <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div>
+      <p class="cart-note">Shipping & taxes calculated at checkout</p>
+      <a href="#" class="btn btn--primary btn--full">Checkout</a>
+    </div>
+  </aside>
+
+  <!-- ABOUT HERO -->
+  <section class="page-hero" style="background-image:linear-gradient(rgba(10,10,10,0.7),rgba(10,10,10,0.7)),url('https://images.unsplash.com/photo-1519415510236-718bdfcd89c8?w=1600&q=80');background-size:cover;background-position:center;padding:140px 0 100px;">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span class="current">Our Story</span>
+      </nav>
+      <h1 style="font-size:clamp(48px,7vw,90px);">Crafted for<br><span style="color:var(--accent);">Every Step.</span></h1>
+      <p style="max-width:540px;margin:0 auto;font-size:18px;">We believe shoes are more than footwear — they're an expression of who you are.</p>
+    </div>
+  </section>
+
+  <!-- ABOUT INTRO -->
+  <section class="about-intro">
+    <div class="container">
+      <div class="about-intro__grid">
+        <div class="about-intro__text fade-in">
+          <span class="section__tag">Est. 2018 · Bangalore, India</span>
+          <h2>Born from a Passion<br>for <span style="color:var(--accent);">Craft</span></h2>
+          <p>SOLE started in a small workshop in Koramangala, Bangalore, where our founder Arjun Mehta spent three years perfecting the ideal sneaker. Fed up with choosing between comfort and aesthetics, he set out to build a brand that refused to compromise.</p>
+          <p>Today, SOLE is India's most loved minimalist footwear brand — trusted by architects, designers, creatives and everyday people who believe what you wear tells the world who you are.</p>
+          <p>Every pair is designed in-house, tested on real terrain, and crafted with materials we'd proudly wear ourselves.</p>
+          <a href="products.html" class="btn btn--primary" style="margin-top:16px;">Shop the Collection</a>
+        </div>
+        <div class="about-intro__image fade-in fade-in-delay-2">
+          <img src="https://images.unsplash.com/photo-1490481651871-ab68de25d43d?w=700&q=80" alt="SOLE Founder" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VALUES -->
+  <section class="section" style="background:var(--off-white);">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">What We Stand For</p>
+        <h2 class="section__title">Our <span>Values</span></h2>
+      </div>
+      <div class="values__grid">
+        <div class="value__card fade-in">
+          <i class="fas fa-leaf"></i>
+          <h3>Sustainable Materials</h3>
+          <p>We source responsibly. Our leather is ethically tanned, our packaging is 100% recycled, and we offset every shipment's carbon footprint.</p>
+        </div>
+        <div class="value__card fade-in fade-in-delay-2">
+          <i class="fas fa-hand-sparkles"></i>
+          <h3>Handcrafted Quality</h3>
+          <p>Each pair passes through the hands of skilled artisans who have refined their craft over decades. No shortcuts, ever.</p>
+        </div>
+        <div class="value__card fade-in fade-in-delay-3">
+          <i class="fas fa-infinity"></i>
+          <h3>Timeless Design</h3>
+          <p>We design shoes that outlast trends. Classic silhouettes, premium materials — pieces you'll wear for years, not seasons.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TEAM / NUMBERS -->
+  <section class="stats">
+    <div class="container stats__grid">
+      <div class="stat__item">
+        <h2 class="stat__num" data-target="15000">0</h2>
+        <p>Happy Customers</p>
+      </div>
+      <div class="stat__item">
+        <h2 class="stat__num" data-target="200">0</h2>
+        <p>Styles Created</p>
+      </div>
+      <div class="stat__item">
+        <h2 class="stat__num" data-target="8">0</h2>
+        <p>Years of Craft</p>
+      </div>
+      <div class="stat__item">
+        <h2 class="stat__num" data-target="50">0</h2>
+        <p>Cities Delivered</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="section">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Our Journey</p>
+        <h2 class="section__title">The SOLE <span>Timeline</span></h2>
+      </div>
+      <div class="timeline">
+        <div class="timeline__item fade-in">
+          <div class="timeline__year">2018</div>
+          <div class="timeline__content">
+            <h3>The Beginning</h3>
+            <p>Arjun Mehta starts SOLE from a 400 sq ft workshop in Koramangala. First batch: 50 pairs, sold out in 3 days.</p>
+          </div>
+        </div>
+        <div class="timeline__item fade-in fade-in-delay-1">
+          <div class="timeline__year">2019</div>
+          <div class="timeline__content">
+            <h3>First Flagship</h3>
+            <p>SOLE opens its first physical store in Indiranagar, Bangalore. 500+ customers on launch day.</p>
+          </div>
+        </div>
+        <div class="timeline__item fade-in fade-in-delay-2">
+          <div class="timeline__year">2021</div>
+          <div class="timeline__content">
+            <h3>Going Digital</h3>
+            <p>Launched sole.store — our online home. Reached 5,000 customers across 30 cities in 6 months.</p>
+          </div>
+        </div>
+        <div class="timeline__item fade-in fade-in-delay-3">
+          <div class="timeline__year">2023</div>
+          <div class="timeline__content">
+            <h3>Sustainability Pledge</h3>
+            <p>Switched to 100% recycled packaging and carbon-neutral shipping on all orders above ₹2999.</p>
+          </div>
+        </div>
+        <div class="timeline__item fade-in fade-in-delay-4">
+          <div class="timeline__year">2026</div>
+          <div class="timeline__content">
+            <h3>15,000+ Soles</h3>
+            <p>Over 15,000 customers in 50+ cities. New season dropping every Friday. The journey continues.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="background:var(--black);padding:100px 0;text-align:center;">
+    <div class="container">
+      <p class="section__tag">Ready to find your pair?</p>
+      <h2 style="font-family:var(--font-serif);font-size:clamp(36px,5vw,64px);font-weight:900;color:#fff;margin-bottom:32px;">Step into your story.</h2>
+      <a href="products.html" class="btn btn--primary" style="font-size:16px;padding:18px 48px;">Shop Collection</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="nav__logo footer__logo">SOLE<span>.</span></a>
+          <p>Premium footwear for every story. Crafted with intention, worn with pride.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="products.html">All Products</a></li>
+            <li><a href="products.html?cat=sneakers">Sneakers</a></li>
+            <li><a href="products.html?cat=boots">Boots</a></li>
+            <li><a href="products.html?cat=formal">Formal</a></li>
+          </ul>
+        </div>
+        <div class="footer__links">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+          </ul>
+        </div>
+        <div class="footer__links">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">Size Guide</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Returns</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+          <p><i class="fas fa-envelope"></i> hello@sole.store</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 SOLE. All rights reserved. Made with <i class="fas fa-heart"></i> in India.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+  <div class="toast" id="toast"></div>
+
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

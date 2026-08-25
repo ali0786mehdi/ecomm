@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us — SOLE Premium Footwear</title>
+  <meta name="description" content="Get in touch with SOLE. We're here for sizing help, order questions, and anything else." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement-bar">
+    <span>Free shipping on orders over ₹2999 &nbsp;|&nbsp; Use code <strong>SOLE10</strong> for 10% off</span>
+    <button class="announcement-close" aria-label="Close"><i class="fas fa-times"></i></button>
+  </div>
+
+  <!-- NAVIGATION -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="index.html" class="nav__logo">SOLE<span>.</span></a>
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="index.html" class="nav__link">Home</a></li>
+        <li class="nav__dropdown">
+          <a href="products.html" class="nav__link">Shop <i class="fas fa-chevron-down"></i></a>
+          <ul class="dropdown__menu">
+            <li><a href="products.html?cat=sneakers">Sneakers</a></li>
+            <li><a href="products.html?cat=boots">Boots</a></li>
+            <li><a href="products.html?cat=loafers">Loafers</a></li>
+            <li><a href="products.html?cat=sandals">Sandals</a></li>
+            <li><a href="products.html?cat=formal">Formal</a></li>
+            <li><a href="products.html">All Products</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html" class="nav__link">Story</a></li>
+        <li><a href="contact.html" class="nav__link active">Contact</a></li>
+      </ul>
+      <div class="nav__actions">
+        <button class="nav__icon" id="searchToggle" aria-label="Search"><i class="fas fa-search"></i></button>
+        <a href="#" class="nav__icon" aria-label="Account"><i class="fas fa-user"></i></a>
+        <button class="nav__icon cart-btn" id="cartToggle" aria-label="Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="nav__hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+    <div class="search-bar" id="searchBar">
+      <div class="container">
+        <input type="text" placeholder="Search products..." id="searchInput" />
+        <button id="searchSubmit"><i class="fas fa-search"></i></button>
+        <button id="searchClose"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CART SIDEBAR -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar__header">
+      <h3>Your Bag <span id="cartItemCount">(0)</span></h3>
+      <button id="cartClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-sidebar__body" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <i class="fas fa-shopping-bag"></i>
+        <p>Your bag is empty</p>
+        <a href="products.html" class="btn btn--primary">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-sidebar__footer" id="cartFooter" style="display:none;">
+      <div class="cart-subtotal"><span>Subtotal</span><span id="cartSubtotal">₹0</span></div>
+      <p class="cart-note">Shipping & taxes calculated at checkout</p>
+      <a href="#" class="btn btn--primary btn--full">Checkout</a>
+    </div>
+  </aside>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span>/</span>
+        <span class="current">Contact</span>
+      </nav>
+      <h1>Get in Touch</h1>
+      <p>We're here to help — reach out anytime</p>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section class="contact-section">
+    <div class="container">
+      <div class="contact__grid">
+
+        <!-- LEFT: INFO -->
+        <div>
+          <div class="contact__info">
+            <h2>Let's Talk<span style="color:var(--accent)">.</span></h2>
+            <p>Whether you need help with sizing, have a question about your order, or just want to say hello — we'd love to hear from you. Our team typically responds within 24 hours.</p>
+          </div>
+          <div class="contact__details">
+            <div class="contact__detail">
+              <div class="contact__detail-icon"><i class="fas fa-map-marker-alt"></i></div>
+              <div class="contact__detail-text">
+                <strong>Visit Us</strong>
+                <p>24, Design Hub, Koramangala<br>Bangalore — 560034, India</p>
+              </div>
+            </div>
+            <div class="contact__detail">
+              <div class="contact__detail-icon"><i class="fas fa-phone"></i></div>
+              <div class="contact__detail-text">
+                <strong>Call Us</strong>
+                <p>+91 98765 43210<br>Mon–Sat, 10am–7pm IST</p>
+              </div>
+            </div>
+            <div class="contact__detail">
+              <div class="contact__detail-icon"><i class="fas fa-envelope"></i></div>
+              <div class="contact__detail-text">
+                <strong>Email Us</strong>
+                <p>hello@sole.store<br>We reply within 24 hours</p>
+              </div>
+            </div>
+            <div class="contact__detail">
+              <div class="contact__detail-icon"><i class="fab fa-whatsapp"></i></div>
+              <div class="contact__detail-text">
+                <strong>WhatsApp</strong>
+                <p>+91 98765 43210<br>Quick responses, every day</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Social -->
+          <div style="margin-top:40px;">
+            <p style="font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:16px;">Follow Us</p>
+            <div style="display:flex;gap:12px;">
+              <a href="#" style="width:44px;height:44px;background:var(--off-white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--black);transition:all 0.3s;" onmouseover="this.style.background='#0a0a0a';this.style.color='#fff'" onmouseout="this.style.background='var(--off-white)';this.style.color='var(--black)'"><i class="fab fa-instagram"></i></a>
+              <a href="#" style="width:44px;height:44px;background:var(--off-white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--black);transition:all 0.3s;" onmouseover="this.style.background='#0a0a0a';this.style.color='#fff'" onmouseout="this.style.background='var(--off-white)';this.style.color='var(--black)'"><i class="fab fa-twitter"></i></a>
+              <a href="#" style="width:44px;height:44px;background:var(--off-white);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:var(--black);transition:all 0.3s;" onmouseover="this.style.background='#0a0a0a';this.style.color='#fff'" onmouseout="this.style.background='var(--off-white)';this.style.color='var(--black)'"><i class="fab fa-facebook"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT: FORM -->
+        <div class="contact-form fade-in">
+          <h3>Send Us a Message</h3>
+          <form id="contactForm" novalidate>
+            <div class="form-grid">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="Arjun" required />
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Mehta" required />
+              </div>
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="arjun@email.com" required />
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone (Optional)</label>
+                <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" />
+              </div>
+              <div class="form-group full">
+                <label for="subject">Subject</label>
+                <select id="subject" name="subject">
+                  <option value="">Select a topic</option>
+                  <option value="order">Order Inquiry</option>
+                  <option value="sizing">Sizing Help</option>
+                  <option value="return">Return / Exchange</option>
+                  <option value="wholesale">Wholesale</option>
+                  <option value="other">Other</option>
+                </select>
+              </div>
+              <div class="form-group full">
+                <label for="orderNumber">Order Number (if applicable)</label>
+                <input type="text" id="orderNumber" name="orderNumber" placeholder="SOLE-XXXXXX" />
+              </div>
+              <div class="form-group full">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Tell us how we can help you..." required rows="5"></textarea>
+              </div>
+              <div class="form-group full">
+                <button type="submit" class="btn btn--primary btn--full" style="font-size:15px;padding:16px;">
+                  <i class="fas fa-paper-plane"></i> Send Message
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ SECTION -->
+  <section class="section" style="background:var(--off-white);">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Quick Answers</p>
+        <h2 class="section__title">Frequently Asked <span>Questions</span></h2>
+      </div>
+      <div class="faq-grid" id="faqGrid">
+        <div class="faq-item">
+          <button class="faq-question">
+            How long does shipping take?
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Standard delivery takes 2–5 business days across India. Express delivery (1–2 days) is available for metro cities. You'll receive a tracking link via SMS and email once your order ships.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            What is your return policy?
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-answer">
+            <p>We offer 30-day returns on unworn shoes in original packaging. Exchange for size issues is free — just contact us within 7 days of delivery and we'll sort it out.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            How do I find my size?
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Our shoes run true to size for most styles. Check the size guide on each product page for measurements. When in doubt, size up — we also offer free size exchanges.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            Do you ship internationally?
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Currently we ship across all 29 states in India. International shipping is coming soon — join our newsletter to be the first to know.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            What payment methods do you accept?
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-answer">
+            <p>We accept all major credit/debit cards, UPI, NetBanking, PayTM, GPay, PhonePe, and Cash on Delivery for orders up to ₹5000.</p>
+          </div>
+        </div>
+        <div class="faq-item">
+          <button class="faq-question">
+            How can I track my order?
+            <i class="fas fa-plus"></i>
+          </button>
+          <div class="faq-answer">
+            <p>Once your order ships, you'll receive an SMS and email with a tracking link. You can also email us at hello@sole.store with your order number for an update.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="nav__logo footer__logo">SOLE<span>.</span></a>
+          <p>Premium footwear for every story. Crafted with intention, worn with pride.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="products.html">All Products</a></li>
+            <li><a href="products.html?cat=sneakers">Sneakers</a></li>
+            <li><a href="products.html?cat=boots">Boots</a></li>
+          </ul>
+        </div>
+        <div class="footer__links">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div class="footer__links">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">Size Guide</a></li>
+            <li><a href="#">Returns</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+          <p><i class="fas fa-envelope"></i> hello@sole.store</p>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 SOLE. All rights reserved. Made with <i class="fas fa-heart"></i> in India.</p>
+      </div>
+    </div>
+  </footer>
+
+  <button class="back-to-top" id="backToTop"><i class="fas fa-arrow-up"></i></button>
+  <div class="toast" id="toast"></div>
+
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    // FAQ Accordion
+    document.querySelectorAll('.faq-question').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const isOpen = item.classList.contains('active');
+        document.querySelectorAll('.faq-item.active').forEach(i => i.classList.remove('active'));
+        if (!isOpen) item.classList.add('active');
+      });
+    });
+  </script>
+</body>
+</html>

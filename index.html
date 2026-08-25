@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SOLE — Premium Footwear</title>
+  <meta name="description" content="SOLE — Minimalist premium footwear crafted for the bold. Shop sneakers, boots, and more." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+
+  <!-- ======== ANNOUNCEMENT BAR ======== -->
+  <div class="announcement-bar">
+    <span>Free shipping on orders over ₹2999 &nbsp;|&nbsp; Use code <strong>SOLE10</strong> for 10% off &nbsp;|&nbsp; New arrivals every Friday</span>
+    <button class="announcement-close" aria-label="Close"><i class="fas fa-times"></i></button>
+  </div>
+
+  <!-- ======== NAVIGATION ======== -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="index.html" class="nav__logo">SOLE<span>.</span></a>
+
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="index.html" class="nav__link active">Home</a></li>
+        <li class="nav__dropdown">
+          <a href="products.html" class="nav__link">Shop <i class="fas fa-chevron-down"></i></a>
+          <ul class="dropdown__menu">
+            <li><a href="products.html?cat=sneakers">Sneakers</a></li>
+            <li><a href="products.html?cat=boots">Boots</a></li>
+            <li><a href="products.html?cat=loafers">Loafers</a></li>
+            <li><a href="products.html?cat=sandals">Sandals</a></li>
+            <li><a href="products.html?cat=formal">Formal</a></li>
+            <li><a href="products.html">All Products</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html" class="nav__link">Story</a></li>
+        <li><a href="contact.html" class="nav__link">Contact</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <button class="nav__icon" id="searchToggle" aria-label="Search"><i class="fas fa-search"></i></button>
+        <a href="about.html" class="nav__icon" aria-label="Account"><i class="fas fa-user"></i></a>
+        <button class="nav__icon cart-btn" id="cartToggle" aria-label="Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="nav__hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Search Bar -->
+    <div class="search-bar" id="searchBar">
+      <div class="container">
+        <input type="text" placeholder="Search for shoes, brands, styles..." id="searchInput" />
+        <button id="searchSubmit"><i class="fas fa-search"></i></button>
+        <button id="searchClose"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======== CART SIDEBAR ======== -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar__header">
+      <h3>Your Bag <span id="cartItemCount">(0)</span></h3>
+      <button id="cartClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-sidebar__body" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <i class="fas fa-shopping-bag"></i>
+        <p>Your bag is empty</p>
+        <a href="products.html" class="btn btn--primary">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-sidebar__footer" id="cartFooter" style="display:none;">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">₹0</span>
+      </div>
+      <p class="cart-note">Shipping & taxes calculated at checkout</p>
+      <a href="#" class="btn btn--primary btn--full">Checkout</a>
+      <a href="products.html" class="btn btn--outline btn--full">Continue Shopping</a>
+    </div>
+  </aside>
+
+  <!-- ======== HERO SECTION ======== -->
+  <section class="hero">
+    <div class="hero__slides">
+      <div class="hero__slide active" style="background-image: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=1600&q=80')">
+        <div class="hero__overlay"></div>
+        <div class="hero__content container">
+          <p class="hero__tag">New Season 2026</p>
+          <h1 class="hero__title">Walk With<br><span>Intention.</span></h1>
+          <p class="hero__sub">Crafted for those who refuse to blend in.<br>Premium materials. Timeless design.</p>
+          <div class="hero__actions">
+            <a href="products.html" class="btn btn--primary">Shop Collection</a>
+            <a href="about.html" class="btn btn--ghost">Our Story</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero__slide" style="background-image: url('https://images.unsplash.com/photo-1600185365483-26d7a4cc7519?w=1600&q=80')">
+        <div class="hero__overlay"></div>
+        <div class="hero__content container">
+          <p class="hero__tag">Bestsellers</p>
+          <h1 class="hero__title">Comfort<br><span>Redefined.</span></h1>
+          <p class="hero__sub">Every step, a statement. Every pair, a story.</p>
+          <div class="hero__actions">
+            <a href="products.html?cat=sneakers" class="btn btn--primary">Shop Sneakers</a>
+            <a href="products.html" class="btn btn--ghost">View All</a>
+          </div>
+        </div>
+      </div>
+      <div class="hero__slide" style="background-image: url('https://images.unsplash.com/photo-1549298916-b41d501d3772?w=1600&q=80')">
+        <div class="hero__overlay"></div>
+        <div class="hero__content container">
+          <p class="hero__tag">Limited Edition</p>
+          <h1 class="hero__title">Bold.<br><span>Fearless.</span></h1>
+          <p class="hero__sub">Limited drops. Unlimited style.</p>
+          <div class="hero__actions">
+            <a href="products.html" class="btn btn--primary">Explore Now</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hero__controls">
+      <button class="hero__prev" aria-label="Previous"><i class="fas fa-arrow-left"></i></button>
+      <div class="hero__dots">
+        <span class="hero__dot active"></span>
+        <span class="hero__dot"></span>
+        <span class="hero__dot"></span>
+      </div>
+      <button class="hero__next" aria-label="Next"><i class="fas fa-arrow-right"></i></button>
+    </div>
+    <div class="hero__scroll">
+      <span>Scroll</span>
+      <div class="hero__scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ======== BRAND STATS ======== -->
+  <section class="stats">
+    <div class="container stats__grid">
+      <div class="stat__item">
+        <h2 class="stat__num" data-target="15000">0</h2>
+        <p>Happy Customers</p>
+      </div>
+      <div class="stat__item">
+        <h2 class="stat__num" data-target="200">0</h2>
+        <p>Styles Available</p>
+      </div>
+      <div class="stat__item">
+        <h2 class="stat__num" data-target="50">0</h2>
+        <p>Cities Delivered</p>
+      </div>
+      <div class="stat__item">
+        <h2 class="stat__num" data-target="8">0</h2>
+        <p>Years of Craft</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== CATEGORIES ======== -->
+  <section class="categories section" id="categories">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Browse by Style</p>
+        <h2 class="section__title">Find Your <span>Category</span></h2>
+      </div>
+      <div class="categories__grid">
+        <a href="products.html?cat=sneakers" class="category__card category__card--large">
+          <img src="https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=800&q=80" alt="Sneakers" loading="lazy" />
+          <div class="category__overlay">
+            <h3>Sneakers</h3>
+            <span>42 Styles</span>
+          </div>
+        </a>
+        <a href="products.html?cat=boots" class="category__card">
+          <img src="https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=600&q=80" alt="Boots" loading="lazy" />
+          <div class="category__overlay">
+            <h3>Boots</h3>
+            <span>28 Styles</span>
+          </div>
+        </a>
+        <a href="products.html?cat=formal" class="category__card">
+          <img src="https://images.unsplash.com/photo-1614252234498-9a2d2e4c2c0c?w=600&q=80" alt="Formal" loading="lazy" />
+          <div class="category__overlay">
+            <h3>Formal</h3>
+            <span>35 Styles</span>
+          </div>
+        </a>
+        <a href="products.html?cat=sandals" class="category__card">
+          <img src="https://images.unsplash.com/photo-1603487742131-4160ec999306?w=600&q=80" alt="Sandals" loading="lazy" />
+          <div class="category__overlay">
+            <h3>Sandals</h3>
+            <span>19 Styles</span>
+          </div>
+        </a>
+        <a href="products.html?cat=loafers" class="category__card">
+          <img src="https://images.unsplash.com/photo-1560343090-f0409e92791a?w=600&q=80" alt="Loafers" loading="lazy" />
+          <div class="category__overlay">
+            <h3>Loafers</h3>
+            <span>22 Styles</span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== FEATURED PRODUCTS ======== -->
+  <section class="products-section section" id="featured">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Hand-picked for you</p>
+        <h2 class="section__title">Featured <span>Products</span></h2>
+        <div class="product-filters">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="sneakers">Sneakers</button>
+          <button class="filter-btn" data-filter="boots">Boots</button>
+          <button class="filter-btn" data-filter="formal">Formal</button>
+          <button class="filter-btn" data-filter="sandals">Sandals</button>
+        </div>
+      </div>
+      <div class="products__grid" id="featuredGrid">
+        <!-- Products injected by JS -->
+      </div>
+      <div class="section__cta">
+        <a href="products.html" class="btn btn--outline">View All Products <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== PROMO BANNER ======== -->
+  <section class="promo-banner">
+    <div class="promo-banner__inner container">
+      <div class="promo-banner__text">
+        <p class="section__tag" style="color:#fff;">Limited Time</p>
+        <h2>Up to <span>40% OFF</span><br>on Selected Styles</h2>
+        <p>Don't miss out — the best pairs go fast.</p>
+        <a href="products.html" class="btn btn--white">Shop Sale</a>
+      </div>
+      <div class="promo-banner__image">
+        <img src="https://images.unsplash.com/photo-1512374382149-233c42b6a83b?w=700&q=80" alt="Sale" loading="lazy" />
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== NEW ARRIVALS ======== -->
+  <section class="section" id="new-arrivals">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Just dropped</p>
+        <h2 class="section__title">New <span>Arrivals</span></h2>
+      </div>
+      <div class="arrivals__grid" id="arrivalsGrid">
+        <!-- injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== HOW IT WORKS ======== -->
+  <section class="how-it-works section">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Simple Process</p>
+        <h2 class="section__title">How It <span>Works</span></h2>
+      </div>
+      <div class="steps__grid">
+        <div class="step__card">
+          <div class="step__icon"><i class="fas fa-search"></i></div>
+          <span class="step__num">01</span>
+          <h3>Browse & Discover</h3>
+          <p>Explore our curated collection of premium footwear for every occasion and style.</p>
+        </div>
+        <div class="step__card">
+          <div class="step__icon"><i class="fas fa-ruler"></i></div>
+          <span class="step__num">02</span>
+          <h3>Pick Your Size</h3>
+          <p>Use our size guide to find the perfect fit. Free exchanges on size issues.</p>
+        </div>
+        <div class="step__card">
+          <div class="step__icon"><i class="fas fa-shopping-bag"></i></div>
+          <span class="step__num">03</span>
+          <h3>Add to Bag</h3>
+          <p>Select your pair and add to cart. Secure checkout with multiple payment options.</p>
+        </div>
+        <div class="step__card">
+          <div class="step__icon"><i class="fas fa-truck"></i></div>
+          <span class="step__num">04</span>
+          <h3>Swift Delivery</h3>
+          <p>Delivered to your door in 2–5 business days. Track every step of the way.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== TESTIMONIALS ======== -->
+  <section class="testimonials section">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">Real Reviews</p>
+        <h2 class="section__title">What Our <span>Customers Say</span></h2>
+      </div>
+      <div class="testimonials__grid">
+        <div class="testimonial__card">
+          <div class="testimonial__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p>"Absolutely in love with my SOLE sneakers. The quality is unreal — soft leather, perfect stitching and they look even better in person."</p>
+          <div class="testimonial__author">
+            <img src="https://i.pravatar.cc/60?img=1" alt="Aanya" />
+            <div>
+              <strong>Aanya Sharma</strong>
+              <span>Mumbai</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial__card featured-review">
+          <div class="testimonial__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
+          <p>"Ordered the black boots and they arrived in 3 days. The packaging was premium, the fit was perfect. Will definitely be a repeat customer."</p>
+          <div class="testimonial__author">
+            <img src="https://i.pravatar.cc/60?img=12" alt="Rohan" />
+            <div>
+              <strong>Rohan Mehta</strong>
+              <span>Delhi</span>
+            </div>
+          </div>
+        </div>
+        <div class="testimonial__card">
+          <div class="testimonial__stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i></div>
+          <p>"SOLE has changed how I look at shoes. Minimalist, elegant, comfortable. My loafers go with everything. 10/10 would recommend."</p>
+          <div class="testimonial__author">
+            <img src="https://i.pravatar.cc/60?img=5" alt="Priya" />
+            <div>
+              <strong>Priya Nair</strong>
+              <span>Bangalore</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== INSTAGRAM / GALLERY ======== -->
+  <section class="gallery section">
+    <div class="container">
+      <div class="section__header">
+        <p class="section__tag">@sole.store</p>
+        <h2 class="section__title">Follow the <span>Movement</span></h2>
+      </div>
+      <div class="gallery__grid">
+        <a href="#" class="gallery__item"><img src="https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&q=80" alt="Instagram 1" loading="lazy" /><div class="gallery__hover"><i class="fab fa-instagram"></i></div></a>
+        <a href="#" class="gallery__item"><img src="https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=400&q=80" alt="Instagram 2" loading="lazy" /><div class="gallery__hover"><i class="fab fa-instagram"></i></div></a>
+        <a href="#" class="gallery__item"><img src="https://images.unsplash.com/photo-1539185441755-769473a23570?w=400&q=80" alt="Instagram 3" loading="lazy" /><div class="gallery__hover"><i class="fab fa-instagram"></i></div></a>
+        <a href="#" class="gallery__item"><img src="https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=400&q=80" alt="Instagram 4" loading="lazy" /><div class="gallery__hover"><i class="fab fa-instagram"></i></div></a>
+        <a href="#" class="gallery__item"><img src="https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=400&q=80" alt="Instagram 5" loading="lazy" /><div class="gallery__hover"><i class="fab fa-instagram"></i></div></a>
+        <a href="#" class="gallery__item"><img src="https://images.unsplash.com/photo-1594938298603-c8148c4b4e13?w=400&q=80" alt="Instagram 6" loading="lazy" /><div class="gallery__hover"><i class="fab fa-instagram"></i></div></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== NEWSLETTER ======== -->
+  <section class="newsletter">
+    <div class="container newsletter__inner">
+      <div class="newsletter__text">
+        <h2>Stay in the Loop</h2>
+        <p>Get early access to new drops, exclusive deals and style inspiration.</p>
+      </div>
+      <form class="newsletter__form" id="newsletterForm">
+        <input type="email" placeholder="Your email address" required />
+        <button type="submit" class="btn btn--primary">Subscribe</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- ======== FOOTER ======== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="nav__logo footer__logo">SOLE<span>.</span></a>
+          <p>Premium footwear for every story. Crafted with intention, worn with pride.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="products.html">All Products</a></li>
+            <li><a href="products.html?cat=sneakers">Sneakers</a></li>
+            <li><a href="products.html?cat=boots">Boots</a></li>
+            <li><a href="products.html?cat=formal">Formal</a></li>
+            <li><a href="products.html?cat=sandals">Sandals</a></li>
+            <li><a href="products.html">New Arrivals</a></li>
+          </ul>
+        </div>
+        <div class="footer__links">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">Size Guide</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Returns & Exchanges</a></li>
+            <li><a href="#">Track Order</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="footer__links">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="#">Sustainability</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-map-marker-alt"></i> 24, Design Hub, Koramangala, Bangalore</p>
+          <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+          <p><i class="fas fa-envelope"></i> hello@sole.store</p>
+          <div class="footer__payments">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="Visa" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/200px-UPI-Logo-vector.svg.png" alt="UPI" />
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 SOLE. All rights reserved. Made with <i class="fas fa-heart"></i> in India.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======== BACK TO TOP ======== -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- ======== TOAST NOTIFICATION ======== -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>
