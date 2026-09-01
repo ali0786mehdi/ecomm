@@ -234,11 +234,14 @@
       const urlCat = params.get('cat');
       const urlQ = params.get('q');
 
-      let activeCategory = urlCat || 'all';
+      // Bug 7 fix: support multiple checked categories as a Set
+      let activeCategories = new Set(urlCat ? [urlCat] : ['all']);
       let sortBy = 'default';
       let maxPrice = 10000;
       let saleOnly = false;
       let newOnly = false;
+      // Bug 4 fix: track selected color filter
+      let activeColor = null;
       let searchQuery = urlQ || '';
 
       // Set URL cat in sidebar
@@ -253,10 +256,21 @@
 
       function getFiltered() {
         let list = [...PRODUCTS];
-        if (activeCategory !== 'all') list = list.filter(p => p.category === activeCategory);
+
+        // Bug 7 fix: handle multiple categories
+        if (!activeCategories.has('all') && activeCategories.size > 0) {
+          list = list.filter(p => activeCategories.has(p.category));
+        }
+
         if (maxPrice < 10000) list = list.filter(p => p.price <= maxPrice);
         if (saleOnly) list = list.filter(p => p.sale);
         if (newOnly) list = list.filter(p => p.new);
+
+        // Bug 4 fix: filter by selected color swatch
+        if (activeColor) {
+          list = list.filter(p => p.colors && p.colors.includes(activeColor));
+        }
+
         if (searchQuery) {
           const q = searchQuery.toLowerCase();
           list = list.filter(p => p.name.toLowerCase().includes(q) || p.category.toLowerCase().includes(q));
@@ -288,15 +302,47 @@
         }, 50);
       }
 
+      // Bug 7 fix: category checkboxes now properly support multiple selections
       document.querySelectorAll('#categoryFilters input').forEach(cb => {
         cb.addEventListener('change', () => {
-          if (cb.value === 'all') {
-            document.querySelectorAll('#categoryFilters input').forEach(c => { c.checked = c.value === 'all'; });
-            activeCategory = 'all';
+          if (cb.value === 'all' && cb.checked) {
+            // "All" selected: uncheck everything else, reset to all
+            document.querySelectorAll('#categoryFilters input').forEach(c => {
+              c.checked = c.value === 'all';
+            });
+            activeCategories = new Set(['all']);
           } else {
-            document.querySelector('#categoryFilters input[value="all"]').checked = false;
-            const checked = [...document.querySelectorAll('#categoryFilters input:checked')].map(c => c.value);
-            activeCategory = checked.length === 1 ? checked[0] : 'all';
+            // Specific category toggled
+            const allCheckbox = document.querySelector('#categoryFilters input[value="all"]');
+            if (cb.checked) {
+              activeCategories.delete('all');
+              activeCategories.add(cb.value);
+              if (allCheckbox) allCheckbox.checked = false;
+            } else {
+              activeCategories.delete(cb.value);
+              // If nothing checked, revert to "all"
+              if (activeCategories.size === 0) {
+                activeCategories.add('all');
+                if (allCheckbox) allCheckbox.checked = true;
+              }
+            }
+          }
+          renderShop();
+        });
+      });
+
+      // Bug 4 fix: wire up color swatch filter
+      document.querySelectorAll('#colorSwatches .color-swatch').forEach(swatch => {
+        swatch.addEventListener('click', () => {
+          const color = swatch.dataset.color;
+          if (activeColor === color) {
+            // Clicking active swatch toggles it off
+            activeColor = null;
+            document.querySelectorAll('#colorSwatches .color-swatch').forEach(s => s.classList.remove('active'));
+          } else {
+            activeColor = color;
+            document.querySelectorAll('#colorSwatches .color-swatch').forEach(s => s.classList.remove('active'));
+            swatch.classList.add('active');
           }
           renderShop();
         });
@@ -317,11 +363,12 @@
       if (filterNew) filterNew.addEventListener('change', () => { newOnly = filterNew.checked; renderShop(); });
       if (clearFilters) {
         clearFilters.addEventListener('click', () => {
-          activeCategory = 'all';
+          activeCategories = new Set(['all']);
           sortBy = 'default';
           maxPrice = 10000;
           saleOnly = false;
           newOnly = false;
+          activeColor = null;
           searchQuery = '';
           if (shopSort) shopSort.value = 'default';
           if (priceRange) priceRange.value = 10000;
@@ -329,6 +376,7 @@
           if (filterSale) filterSale.checked = false;
           if (filterNew) filterNew.checked = false;
           document.querySelectorAll('#categoryFilters input').forEach(c => { c.checked = c.value === 'all'; });
+          document.querySelectorAll('#colorSwatches .color-swatch').forEach(s => s.classList.remove('active'));
           renderShop();
         });
       }
