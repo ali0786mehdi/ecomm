@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Order Confirmed – SOLE Premium Footwear</title>
+  <meta name="description" content="Your SOLE order has been confirmed. Thank you for shopping with us!" />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* =============================================
+       ORDER SUCCESS PAGE – INLINE STYLES
+       ============================================= */
+
+    :root {
+      --black: #0a0a0a;
+      --white: #fff;
+      --off-white: #f8f7f4;
+      --accent: #c9a96e;
+      --danger: #e53e3e;
+      --success: #38a169;
+    }
+
+    /* ---- Simplified Nav ---- */
+    .success-nav {
+      position: sticky;
+      top: 0;
+      z-index: 900;
+      background: var(--white);
+      border-bottom: 1px solid rgba(0,0,0,.08);
+      padding: 0 2rem;
+      height: 68px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .success-nav .nav__logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 900;
+      font-size: 1.6rem;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: -0.02em;
+    }
+    .success-nav .nav__logo span { color: var(--accent); }
+    .success-nav .continue-link {
+      display: inline-flex;
+      align-items: center;
+      gap: .45rem;
+      font-size: .9rem;
+      font-weight: 600;
+      color: var(--black);
+      text-decoration: none;
+      transition: color .2s;
+    }
+    .success-nav .continue-link:hover { color: var(--accent); }
+
+    /* ---- Confetti Canvas ---- */
+    #confettiCanvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      pointer-events: none;
+      z-index: 9999;
+    }
+
+    /* ---- Success Hero ---- */
+    .success-hero {
+      background: var(--off-white);
+      padding: 5rem 1.5rem 4rem;
+      text-align: center;
+      overflow: hidden;
+      position: relative;
+    }
+    .success-hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; right: -120px;
+      width: 380px; height: 380px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(201,169,110,.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .success-hero::after {
+      content: '';
+      position: absolute;
+      bottom: -100px; left: -100px;
+      width: 300px; height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(56,161,105,.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* ---- Animated Checkmark ---- */
+    .checkmark-wrap {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.6rem;
+    }
+    .checkmark-circle {
+      width: 90px;
+      height: 90px;
+    }
+    .checkmark-circle .circle-bg {
+      fill: none;
+      stroke: #e6f4ee;
+      stroke-width: 4;
+    }
+    .checkmark-circle .circle-ring {
+      fill: none;
+      stroke: var(--success);
+      stroke-width: 4;
+      stroke-linecap: round;
+      stroke-dasharray: 264;
+      stroke-dashoffset: 264;
+      transform: rotate(-90deg);
+      transform-origin: 45px 45px;
+      animation: drawCircle .7s ease forwards .1s;
+    }
+    .checkmark-circle .checkmark-tick {
+      fill: none;
+      stroke: var(--success);
+      stroke-width: 5;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      stroke-dasharray: 50;
+      stroke-dashoffset: 50;
+      animation: drawCheck .4s ease forwards .75s;
+    }
+    @keyframes drawCircle {
+      to { stroke-dashoffset: 0; }
+    }
+    @keyframes drawCheck {
+      to { stroke-dashoffset: 0; }
+    }
+
+    .success-hero__heading {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      color: var(--black);
+      margin: 0 0 .6rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp .5s ease forwards .9s;
+    }
+    .success-hero__sub {
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: #555;
+      margin: 0 0 1.2rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp .5s ease forwards 1.05s;
+    }
+    .success-hero__order-num {
+      display: inline-block;
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--accent);
+      letter-spacing: .05em;
+      background: rgba(201,169,110,.1);
+      border: 1.5px solid rgba(201,169,110,.3);
+      border-radius: 50px;
+      padding: .4rem 1.4rem;
+      margin-bottom: 1rem;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp .5s ease forwards 1.2s;
+    }
+    .success-hero__email-note {
+      font-size: .88rem;
+      color: #888;
+      margin: 0;
+      opacity: 0;
+      animation: fadeUp .5s ease forwards 1.35s;
+    }
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ---- Order Card ---- */
+    .order-card-section {
+      padding: 3.5rem 1.5rem;
+      background: var(--white);
+    }
+    .order-card {
+      background: var(--white);
+      border-radius: 16px;
+      box-shadow: 0 4px 30px rgba(0,0,0,.08), 0 1px 6px rgba(0,0,0,.04);
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2.2rem;
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    .order-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .55s ease, transform .55s ease;
+    }
+    .order-card__title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--black);
+      margin: 0 0 1.4rem;
+    }
+
+    /* Items */
+    .order-items-list {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.4rem;
+    }
+    .order-item-row {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: .75rem 0;
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .order-item-row:last-child { border-bottom: none; }
+    .order-item-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+      flex-shrink: 0;
+      background: var(--off-white);
+    }
+    .order-item-info {
+      flex: 1;
+      min-width: 0;
+    }
+    .order-item-name {
+      font-weight: 600;
+      font-size: .93rem;
+      color: var(--black);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .order-item-meta {
+      font-size: .8rem;
+      color: #888;
+      margin-top: .15rem;
+    }
+    .order-item-price {
+      font-weight: 700;
+      font-size: .93rem;
+      color: var(--black);
+      white-space: nowrap;
+    }
+
+    /* Totals */
+    .order-divider {
+      border: none;
+      border-top: 1px solid rgba(0,0,0,.08);
+      margin: 1.2rem 0;
+    }
+    .order-totals {
+      margin: 0 0 1.4rem;
+    }
+    .order-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: .35rem 0;
+      font-size: .9rem;
+      color: #555;
+    }
+    .order-total-row.discount { color: var(--success); font-weight: 600; }
+    .order-total-row.grand-total {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--black);
+      padding: .6rem 0 .4rem;
+    }
+
+    /* Meta: address / payment */
+    .order-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.2rem;
+      margin-top: .8rem;
+    }
+    @media (max-width: 500px) {
+      .order-meta { grid-template-columns: 1fr; }
+    }
+    .order-meta-block h5 {
+      font-size: .78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: #aaa;
+      margin: 0 0 .45rem;
+    }
+    .order-meta-block p {
+      font-size: .88rem;
+      color: #444;
+      line-height: 1.6;
+      margin: 0;
+    }
+    .order-meta-block .delivery-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: .35rem;
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--success);
+      background: rgba(56,161,105,.1);
+      border-radius: 50px;
+      padding: .25rem .75rem;
+      margin-top: .4rem;
+    }
+
+    /* ---- Next Steps ---- */
+    .next-steps-section {
+      background: var(--off-white);
+      padding: 4rem 1.5rem;
+    }
+    .next-steps-section .section__header { margin-bottom: 2.2rem; }
+    .next-steps {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.4rem;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    @media (max-width: 720px) {
+      .next-steps { grid-template-columns: 1fr; max-width: 420px; }
+    }
+    .next-step-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 2rem 1.5rem;
+      text-align: center;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+      transition: transform .25s ease, box-shadow .25s ease;
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    .next-step-card.visible {
+      opacity: 1;
+      transform: translateY(0);
+      transition: opacity .5s ease, transform .5s ease, box-shadow .25s ease;
+    }
+    .next-step-card:hover {
+      transform: translateY(-4px) !important;
+      box-shadow: 0 8px 28px rgba(0,0,0,.1);
+    }
+    .next-step-icon {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: rgba(201,169,110,.12);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+    .next-step-card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--black);
+      margin: 0 0 .6rem;
+    }
+    .next-step-card p {
+      font-size: .85rem;
+      color: #666;
+      line-height: 1.65;
+      margin: 0 0 1rem;
+    }
+    .next-step-card a.btn {
+      font-size: .82rem;
+      padding: .45rem 1.2rem;
+    }
+    .next-step-card a.step-link {
+      font-size: .85rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: .3rem;
+    }
+    .next-step-card a.step-link:hover { text-decoration: underline; }
+
+    /* ---- You Might Also Like ---- */
+    .recs-section {
+      background: var(--white);
+      padding: 4rem 1.5rem;
+    }
+    .recs-section .section__header { margin-bottom: 2rem; }
+    .recs-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.4rem;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    @media (max-width: 900px) { .recs-grid { grid-template-columns: repeat(2, 1fr); } }
+    @media (max-width: 500px) { .recs-grid { grid-template-columns: 1fr; } }
+
+    /* ---- Utility ---- */
+    .text-center { text-align: center; }
+  </style>
+</head>
+<body>
+
+  <!-- ======== SIMPLIFIED NAV ======== -->
+  <nav class="success-nav" aria-label="Site navigation">
+    <a href="index.html" class="nav__logo">SOLE<span>.</span></a>
+    <a href="products.html" class="continue-link">
+      <i class="fas fa-arrow-left" aria-hidden="true"></i> Continue Shopping
+    </a>
+  </nav>
+
+  <!-- ======== CONFETTI CANVAS ======== -->
+  <canvas id="confettiCanvas" aria-hidden="true"></canvas>
+
+  <!-- ======== SUCCESS HERO ======== -->
+  <section class="success-hero" aria-label="Order confirmation">
+    <div class="checkmark-wrap" aria-hidden="true">
+      <svg class="checkmark-circle" viewBox="0 0 90 90" xmlns="http://www.w3.org/2000/svg">
+        <circle class="circle-bg" cx="45" cy="45" r="42" />
+        <circle class="circle-ring" cx="45" cy="45" r="42" />
+        <polyline class="checkmark-tick" points="26,45 38,57 64,33" />
+      </svg>
+    </div>
+
+    <h1 class="success-hero__heading">Order Confirmed! &#x1F389;</h1>
+    <p class="success-hero__sub" id="heroThankYou">Thank you!</p>
+    <p class="success-hero__order-num" id="heroOrderNum">#SOLE-000000</p>
+    <p class="success-hero__email-note" id="heroEmailNote">A confirmation has been sent to your email.</p>
+  </section>
+
+  <!-- ======== ORDER DETAILS CARD ======== -->
+  <section class="order-card-section">
+    <article class="order-card" id="orderCard" role="region" aria-label="Order Summary">
+      <h2 class="order-card__title">Order Summary</h2>
+
+      <ul class="order-items-list" id="orderItemsList" aria-label="Ordered items">
+        <!-- injected by JS -->
+      </ul>
+
+      <hr class="order-divider" />
+
+      <div class="order-totals">
+        <div class="order-total-row">
+          <span>Subtotal</span>
+          <span id="totSubtotal">&#8377;0</span>
+        </div>
+        <div class="order-total-row" id="shippingRow">
+          <span>Shipping</span>
+          <span id="totShipping">Free</span>
+        </div>
+        <div class="order-total-row discount" id="discountRow" style="display:none;">
+          <span id="discountLabel">Discount</span>
+          <span id="totDiscount">-&#8377;0</span>
+        </div>
+        <hr class="order-divider" />
+        <div class="order-total-row grand-total">
+          <span>Total</span>
+          <span id="totTotal">&#8377;0</span>
+        </div>
+      </div>
+
+      <hr class="order-divider" />
+
+      <div class="order-meta">
+        <div class="order-meta-block">
+          <h5><i class="fas fa-map-marker-alt" aria-hidden="true"></i> Delivery Address</h5>
+          <p id="metaAddress">&#8212;</p>
+        </div>
+        <div class="order-meta-block">
+          <h5><i class="fas fa-credit-card" aria-hidden="true"></i> Payment &amp; Delivery</h5>
+          <p id="metaPayment">&#8212;</p>
+          <span class="delivery-badge" id="deliveryBadge">
+            <i class="fas fa-truck" aria-hidden="true"></i>
+            <span id="deliveryText">3&#8211;5 Business Days</span>
+          </span>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <!-- ======== NEXT STEPS ======== -->
+  <section class="next-steps-section" aria-label="Next steps">
+    <div class="section__header text-center">
+      <p class="section__tag">What&#8217;s Next</p>
+      <h2 class="section__title">We&#8217;ve Got You <span>Covered</span></h2>
+    </div>
+    <div class="next-steps">
+
+      <div class="next-step-card" id="nextCard1">
+        <div class="next-step-icon" aria-hidden="true">
+          <i class="fas fa-truck"></i>
+        </div>
+        <h3>Track Your Order</h3>
+        <p>You&#8217;ll receive tracking details via SMS &amp; email within 24 hours of dispatch.</p>
+      </div>
+
+      <div class="next-step-card" id="nextCard2">
+        <div class="next-step-icon" aria-hidden="true">
+          <i class="fas fa-headset"></i>
+        </div>
+        <h3>Need Help?</h3>
+        <p>Our support team is happy to assist. Reach out anytime &#8212; we&#8217;re here for you.</p>
+        <p>
+          <a href="mailto:hello@sole.store" class="step-link">hello@sole.store</a><br />
+          <a href="tel:+919876543210" class="step-link">+91 98765 43210</a>
+        </p>
+        <a href="contact.html" class="step-link">Visit Contact Page <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+      </div>
+
+      <div class="next-step-card" id="nextCard3">
+        <div class="next-step-icon" aria-hidden="true">
+          <i class="fas fa-shopping-bag"></i>
+        </div>
+        <h3>Keep Shopping</h3>
+        <p>New styles drop every Friday. Don&#8217;t miss the next big collection.</p>
+        <a href="products.html" class="btn btn--primary">Shop Now</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======== YOU MIGHT ALSO LIKE ======== -->
+  <section class="recs-section" aria-label="Recommended products">
+    <div class="section__header text-center">
+      <p class="section__tag">Handpicked for You</p>
+      <h2 class="section__title">You Might Also <span>Like</span></h2>
+    </div>
+    <div class="recs-grid" id="recsGrid">
+      <!-- injected by JS -->
+    </div>
+  </section>
+
+  <!-- ======== FOOTER ======== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="nav__logo footer__logo">SOLE<span>.</span></a>
+          <p>Premium footwear for every story. Crafted with intention, worn with pride.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="products.html">All Products</a></li>
+            <li><a href="products.html?cat=sneakers">Sneakers</a></li>
+            <li><a href="products.html?cat=boots">Boots</a></li>
+            <li><a href="products.html?cat=formal">Formal</a></li>
+            <li><a href="products.html?cat=sandals">Sandals</a></li>
+            <li><a href="products.html">New Arrivals</a></li>
+          </ul>
+        </div>
+        <div class="footer__links">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#">Size Guide</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Returns &amp; Exchanges</a></li>
+            <li><a href="#">Track Order</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="footer__links">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="#">Sustainability</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-map-marker-alt"></i> 24, Design Hub, Koramangala, Bangalore</p>
+          <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+          <p><i class="fas fa-envelope"></i> hello@sole.store</p>
+          <div class="footer__payments">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="Visa" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/200px-UPI-Logo-vector.svg.png" alt="UPI" />
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 SOLE. All rights reserved. Made with <i class="fas fa-heart"></i> in India.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======== BACK TO TOP ======== -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">
+    <i class="fas fa-arrow-up"></i>
+  </button>
+
+  <!-- ======== TOAST ======== -->
+  <div class="toast" id="toast" aria-live="polite"></div>
+
+  <script src="js/products.js"></script>
+
+  <script>
+    /* ============================================================
+       ORDER SUCCESS PAGE – INLINE JAVASCRIPT
+       ============================================================ */
+    (function () {
+      'use strict';
+
+      /* ----------------------------------------------------------
+         1. Load order from localStorage; redirect if missing
+         ---------------------------------------------------------- */
+      var ORDER_KEY = 'sole_last_order';
+      var CART_KEY  = 'sole_cart';
+
+      var orderData = null;
+      try { orderData = JSON.parse(localStorage.getItem(ORDER_KEY)); } catch (e) {}
+
+      if (!orderData) {
+        window.location.replace('index.html');
+        return;
+      }
+
+      // Clear cart – order has been placed
+      localStorage.removeItem(CART_KEY);
+
+      /* ----------------------------------------------------------
+         2. Helpers
+         ---------------------------------------------------------- */
+      function fmt(n) {
+        return '\u20B9' + Number(n).toLocaleString('en-IN');
+      }
+      function el(id) { return document.getElementById(id); }
+      function pad(num, size) {
+        var s = String(num);
+        while (s.length < size) s = '0' + s;
+        return s;
+      }
+      function genOrderNum() {
+        var ts   = Date.now().toString(36).toUpperCase();
+        var rand = pad(Math.floor(Math.random() * 99999), 5);
+        return ts + rand;
+      }
+
+      /* ----------------------------------------------------------
+         3. Hero section
+         ---------------------------------------------------------- */
+      var orderNum  = orderData.orderNumber || genOrderNum();
+      var firstName = (orderData.customerName || 'Customer').split(' ')[0];
+      var email     = orderData.email || '';
+
+      el('heroThankYou').textContent  = 'Thank you, ' + firstName + '!';
+      el('heroOrderNum').textContent  = '#SOLE-' + orderNum;
+      el('heroEmailNote').textContent = email
+        ? 'A confirmation has been sent to ' + email
+        : 'A confirmation has been sent to your email.';
+
+      /* ----------------------------------------------------------
+         4. Order items list
+         ---------------------------------------------------------- */
+      var items  = Array.isArray(orderData.items) ? orderData.items : [];
+      var listEl = el('orderItemsList');
+
+      items.forEach(function (item) {
+        var li = document.createElement('li');
+        li.className = 'order-item-row';
+        var imgSrc = item.image ||
+          'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=200&q=60';
+        li.innerHTML =
+          '<img class="order-item-img" src="' + imgSrc + '" alt="' + item.name + '" loading="lazy" />' +
+          '<div class="order-item-info">' +
+            '<p class="order-item-name">' + item.name + '</p>' +
+            '<p class="order-item-meta">Size: ' + (item.size || '\u2014') +
+            ' &nbsp;&middot;&nbsp; Qty: ' + (item.qty || 1) + '</p>' +
+          '</div>' +
+          '<span class="order-item-price">' + fmt((item.price || 0) * (item.qty || 1)) + '</span>';
+        listEl.appendChild(li);
+      });
+
+      /* ----------------------------------------------------------
+         5. Totals
+         ---------------------------------------------------------- */
+      var subtotal = orderData.subtotal !== undefined
+        ? orderData.subtotal
+        : items.reduce(function (s, i) { return s + (i.price || 0) * (i.qty || 1); }, 0);
+      var shipping = orderData.shipping !== undefined
+        ? orderData.shipping
+        : (subtotal >= 2999 ? 0 : 199);
+      var discount = orderData.discount || 0;
+      var total    = orderData.total !== undefined
+        ? orderData.total
+        : (subtotal + shipping - discount);
+      var coupon   = orderData.coupon || '';
+
+      el('totSubtotal').textContent = fmt(subtotal);
+      el('totShipping').textContent = shipping === 0 ? 'Free' : fmt(shipping);
+      el('totTotal').textContent    = fmt(total);
+
+      if (discount > 0) {
+        var dr = el('discountRow');
+        dr.style.display = 'flex';
+        el('discountLabel').textContent = coupon ? 'Discount (' + coupon + ')' : 'Discount';
+        el('totDiscount').textContent   = '-' + fmt(discount);
+      }
+
+      /* ----------------------------------------------------------
+         6. Address, Payment, Delivery estimate
+         ---------------------------------------------------------- */
+      var addr = orderData.address || {};
+      var addrParts = [addr.line1, addr.line2, addr.city, addr.state,
+        addr.pin ? 'PIN ' + addr.pin : ''].filter(Boolean);
+      el('metaAddress').innerHTML = addrParts.length
+        ? addrParts.join('<br />')
+        : 'Address not provided';
+
+      var paymentMap = {
+        card:    '\uD83D\uDCB3 Credit / Debit Card',
+        upi:     '\uD83D\uDCF1 UPI',
+        cod:     '\uD83D\uDCB5 Cash on Delivery',
+        netbank: '\uD83C\uDFE6 Net Banking',
+        wallet:  '\uD83D\uDC5D Wallet'
+      };
+      var payMethod = orderData.paymentMethod || 'card';
+      el('metaPayment').textContent = paymentMap[payMethod] || payMethod;
+
+      var isExpress = orderData.express === true;
+      el('deliveryText').textContent = isExpress
+        ? '1\u20132 Business Days'
+        : '3\u20135 Business Days';
+
+      /* ----------------------------------------------------------
+         7. "You Might Also Like" recommendations
+         ---------------------------------------------------------- */
+      (function renderRecs() {
+        if (!window.PRODUCTS || !window.PRODUCTS.length) return;
+
+        var orderedIds = items.map(function (i) { return i.id; });
+        var topCategory = 'sneakers';
+
+        if (items.length > 0) {
+          var mostExpensive = items.reduce(function (prev, curr) {
+            return (curr.price || 0) > (prev.price || 0) ? curr : prev;
+          }, items[0]);
+          var matched = window.PRODUCTS.filter(function (p) {
+            return p.id === mostExpensive.id;
+          })[0];
+          topCategory = matched ? matched.category
+            : (mostExpensive.category || 'sneakers');
+        }
+
+        var recs = window.PRODUCTS.filter(function (p) {
+          return p.category === topCategory && orderedIds.indexOf(p.id) === -1;
+        }).slice(0, 4);
+
+        if (recs.length < 4) {
+          var extras = window.PRODUCTS.filter(function (p) {
+            return orderedIds.indexOf(p.id) === -1 &&
+              recs.filter(function (r) { return r.id === p.id; }).length === 0;
+          }).slice(0, 4 - recs.length);
+          recs = recs.concat(extras);
+        }
+
+        var grid = el('recsGrid');
+        if (!grid) return;
+        grid.innerHTML = '';
+
+        recs.forEach(function (product) {
+          if (window.SOLE && typeof window.SOLE.createProductCard === 'function') {
+            grid.appendChild(window.SOLE.createProductCard(product));
+            return;
+          }
+          // Fallback product card matching existing .product__card markup
+          var card = document.createElement('div');
+          card.className = 'product__card';
+          var badgeHtml = product.badge
+            ? '<span class="product__badge product__badge--' + product.badge + '">' +
+              product.badge.charAt(0).toUpperCase() + product.badge.slice(1) + '</span>'
+            : '';
+          var oldPriceHtml = product.originalPrice
+            ? '<span class="product__price-old">' + fmt(product.originalPrice) + '</span>'
+            : '';
+          card.innerHTML =
+            '<div class="product__img-wrap">' +
+              badgeHtml +
+              '<img src="' + product.image + '" alt="' + product.name +
+                '" loading="lazy" class="product__img" />' +
+              '<div class="product__actions">' +
+                '<button class="product__wishlist" aria-label="Add to wishlist">' +
+                  '<i class="far fa-heart"></i></button>' +
+                '<button class="product__quick-view" aria-label="Quick view" data-id="' +
+                  product.id + '"><i class="fas fa-expand"></i></button>' +
+              '</div>' +
+            '</div>' +
+            '<div class="product__info">' +
+              '<p class="product__category">' + product.category + '</p>' +
+              '<h3 class="product__name">' + product.name + '</h3>' +
+              '<div class="product__rating">' +
+                '<i class="fas fa-star"></i>' +
+                '<span>' + product.rating + ' (' + product.reviews + ')</span>' +
+              '</div>' +
+              '<div class="product__price">' +
+                '<span class="product__price-current">' + fmt(product.price) + '</span>' +
+                oldPriceHtml +
+              '</div>' +
+              '<button class="btn btn--primary btn--full product__add-cart" data-id="' +
+                product.id + '">Add to Bag</button>' +
+            '</div>';
+          grid.appendChild(card);
+        });
+      })();
+
+      /* ----------------------------------------------------------
+         8. Scroll-triggered fade-in (IntersectionObserver)
+         ---------------------------------------------------------- */
+      (function initReveal() {
+        if (!window.IntersectionObserver) {
+          // Fallback: make everything visible immediately
+          document.querySelectorAll('.order-card, .next-step-card').forEach(function (t) {
+            t.classList.add('visible');
+          });
+          return;
+        }
+        var observer = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              var cards = document.querySelectorAll('.next-step-card');
+              var idx   = Array.prototype.indexOf.call(cards, entry.target);
+              if (idx >= 0) {
+                entry.target.style.transitionDelay = (idx * 0.12) + 's';
+              }
+              entry.target.classList.add('visible');
+              observer.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.1 });
+
+        document.querySelectorAll('.order-card, .next-step-card').forEach(function (t) {
+          observer.observe(t);
+        });
+      })();
+
+      /* ----------------------------------------------------------
+         9. Canvas confetti
+         ---------------------------------------------------------- */
+      (function launchConfetti() {
+        var canvas = el('confettiCanvas');
+        if (!canvas) return;
+        var ctx    = canvas.getContext('2d');
+        var pieces = [];
+        var W, H;
+        var COLORS = [
+          '#c9a96e', '#38a169', '#0a0a0a', '#e53e3e',
+          '#ffffff', '#3b82f6', '#f59e0b', '#ec4899', '#8b5cf6'
+        ];
+
+        function resize() {
+          W = canvas.width  = window.innerWidth;
+          H = canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        function Piece() {
+          this.x      = Math.random() * W;
+          this.y      = -14;
+          this.w      = Math.random() * 9 + 5;
+          this.h      = Math.random() * 6 + 3;
+          this.color  = COLORS[Math.floor(Math.random() * COLORS.length)];
+          this.speed  = Math.random() * 2.8 + 1.4;
+          this.drift  = (Math.random() - 0.5) * 1.4;
+          this.tilt   = Math.random() * Math.PI * 2;
+          this.tiltV  = (Math.random() - 0.5) * 0.09;
+        }
+        Piece.prototype.step = function () {
+          this.y    += this.speed;
+          this.x    += this.drift;
+          this.tilt += this.tiltV;
+        };
+        Piece.prototype.draw = function () {
+          ctx.save();
+          ctx.globalAlpha = 0.88;
+          ctx.fillStyle   = this.color;
+          ctx.translate(this.x, this.y);
+          ctx.rotate(this.tilt);
+          ctx.fillRect(-this.w / 2, -this.h / 2, this.w, this.h);
+          ctx.restore();
+        };
+
+        var start    = Date.now();
+        var EMIT_DUR = 3600;   // ms to keep spawning
+        var frame    = 0;
+
+        function loop() {
+          ctx.clearRect(0, 0, W, H);
+          var elapsed = Date.now() - start;
+
+          if (elapsed < EMIT_DUR && frame % 2 === 0) {
+            for (var k = 0; k < 7; k++) { pieces.push(new Piece()); }
+          }
+          frame++;
+
+          for (var i = pieces.length - 1; i >= 0; i--) {
+            pieces[i].step();
+            pieces[i].draw();
+            if (pieces[i].y > H + 20) { pieces.splice(i, 1); }
+          }
+
+          if (elapsed < EMIT_DUR + 5000 || pieces.length > 0) {
+            requestAnimationFrame(loop);
+          } else {
+            canvas.style.display = 'none';
+          }
+        }
+        requestAnimationFrame(loop);
+      })();
+
+      /* ----------------------------------------------------------
+         10. Back-to-top button
+         ---------------------------------------------------------- */
+      (function initBackToTop() {
+        var btn = el('backToTop');
+        if (!btn) return;
+        window.addEventListener('scroll', function () {
+          if (window.scrollY > 400) {
+            btn.classList.add('visible');
+          } else {
+            btn.classList.remove('visible');
+          }
+        });
+        btn.addEventListener('click', function () {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      })();
+
+    })();
+  </script>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
