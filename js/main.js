@@ -214,17 +214,17 @@
     card.dataset.category = product.category;
     card.dataset.id = product.id;
     card.innerHTML = `
-      <div class="product-card__image">
+      <a href="product.html?id=${product.id}" class="product-card__image">
         <img src="${product.image}" alt="${product.name}" loading="lazy" />
         <div class="product-card__badges">${badgeHTML}</div>
         <div class="product-card__actions">
           <button class="wishlist-btn" data-id="${product.id}" aria-label="Wishlist"><i class="far fa-heart"></i></button>
           <button class="quick-view-btn" data-id="${product.id}" aria-label="Quick view"><i class="fas fa-eye"></i></button>
         </div>
-      </div>
+      </a>
       <div class="product-card__body">
         <div class="product-card__cat">${product.category}</div>
-        <div class="product-card__name">${product.name}</div>
+        <a href="product.html?id=${product.id}" class="product-card__name">${product.name}</a>
         <div class="product-card__rating">
           <span class="stars">${stars}</span>
           <span>${product.rating} (${product.reviews})</span>
