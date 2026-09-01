@@ -1,0 +1,1440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title id="pageTitle">Product - SOLE Premium Footwear</title>
+  <meta name="description" content="SOLE - Premium footwear product detail page." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+  <style>
+    /* ===== PRODUCT DETAIL PAGE STYLES ===== */
+
+    /* Breadcrumb */
+    .breadcrumb {
+      padding: 1rem 0;
+      font-size: 0.85rem;
+      color: var(--gray-500);
+    }
+    .breadcrumb a {
+      color: var(--gray-500);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .breadcrumb a:hover { color: var(--accent); }
+    .breadcrumb span { margin: 0 0.4rem; }
+
+    /* Page Hero */
+    .page-hero--product {
+      background: var(--off-white);
+      padding: 2rem 0 1rem;
+      border-bottom: 1px solid var(--gray-200);
+    }
+
+    /* Product Detail Grid */
+    .product-detail {
+      padding: 3rem 0 4rem;
+    }
+    .product-detail__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    @media (max-width: 900px) {
+      .product-detail__grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+    }
+
+    /* Gallery */
+    .product-gallery {
+      position: sticky;
+      top: 100px;
+    }
+    .product-gallery__main {
+      width: 100%;
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--gray-100);
+      margin-bottom: 1rem;
+    }
+    .product-gallery__main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s ease;
+    }
+    .product-gallery__main img:hover {
+      transform: scale(1.04);
+    }
+    .product-gallery__thumbs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+    }
+    .product-gallery__thumb {
+      aspect-ratio: 1 / 1;
+      border-radius: 10px;
+      overflow: hidden;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.2s;
+      background: var(--gray-100);
+    }
+    .product-gallery__thumb.active {
+      border-color: var(--accent);
+    }
+    .product-gallery__thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.3s;
+    }
+    .product-gallery__thumb:hover img {
+      transform: scale(1.08);
+    }
+
+    /* Product Info */
+    .product-info {}
+    .product-info__category {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+    }
+    .product-info__name {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.6rem);
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.15;
+      margin-bottom: 0.75rem;
+    }
+    .product-info__rating {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .product-info__stars { color: var(--accent); font-size: 0.95rem; }
+    .product-info__rating-num { font-weight: 600; font-size: 0.9rem; }
+    .product-info__review-count { color: var(--gray-500); font-size: 0.85rem; }
+    .product-info__price {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .product-info__price-current {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--black);
+    }
+    .product-info__price-original {
+      font-size: 1.25rem;
+      color: var(--gray-400);
+      text-decoration: line-through;
+    }
+    .product-info__price-badge {
+      background: var(--danger);
+      color: #fff;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 0.2rem 0.6rem;
+      border-radius: 4px;
+      letter-spacing: 0.04em;
+    }
+    .product-info__desc {
+      color: var(--gray-600);
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+      font-size: 0.95rem;
+    }
+    .product-info__divider {
+      border: none;
+      border-top: 1px solid var(--gray-200);
+      margin: 1.5rem 0;
+    }
+
+    /* Size Selector */
+    .size-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.75rem;
+    }
+    .size-label__text { font-weight: 600; font-size: 0.9rem; }
+    .size-label__guide {
+      font-size: 0.82rem;
+      color: var(--accent);
+      text-decoration: underline;
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+    }
+    .size-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .size-chip {
+      min-width: 46px;
+      height: 46px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1.5px solid var(--gray-300);
+      border-radius: 8px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      background: var(--white);
+      color: var(--black);
+      padding: 0 0.6rem;
+    }
+    .size-chip:hover {
+      border-color: var(--black);
+      background: var(--gray-100);
+    }
+    .size-chip.active {
+      background: var(--black);
+      color: var(--white);
+      border-color: var(--black);
+    }
+    .size-chip.unavailable {
+      opacity: 0.35;
+      cursor: not-allowed;
+      text-decoration: line-through;
+    }
+
+    /* Quantity Control */
+    .qty-label { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.75rem; }
+    .qty-control {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1.5px solid var(--gray-300);
+      border-radius: 10px;
+      overflow: hidden;
+      width: fit-content;
+      margin-bottom: 1.5rem;
+    }
+    .qty-control__btn {
+      width: 44px;
+      height: 44px;
+      border: none;
+      background: var(--white);
+      cursor: pointer;
+      font-size: 1.1rem;
+      color: var(--black);
+      transition: background 0.2s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qty-control__btn:hover { background: var(--gray-100); }
+    .qty-control__btn:disabled { opacity: 0.35; cursor: not-allowed; }
+    .qty-control__value {
+      min-width: 48px;
+      height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 1rem;
+      border-left: 1.5px solid var(--gray-200);
+      border-right: 1.5px solid var(--gray-200);
+    }
+
+    /* CTA Buttons */
+    .product-info__actions {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+      margin-bottom: 2rem;
+    }
+    .btn--add-bag {
+      background: var(--black);
+      color: var(--white);
+      border: 2px solid var(--black);
+      padding: 1rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.04em;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .btn--add-bag:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--white);
+    }
+    .btn--wishlist {
+      background: transparent;
+      color: var(--black);
+      border: 2px solid var(--gray-300);
+      padding: 0.9rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 600;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.2s;
+      font-family: inherit;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    .btn--wishlist:hover,
+    .btn--wishlist.active {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+    .btn--wishlist.active i { font-weight: 900; }
+
+    /* Accordion */
+    .accordion { border-top: 1px solid var(--gray-200); margin-bottom: 1.5rem; }
+    .accordion-item { border-bottom: 1px solid var(--gray-200); }
+    .accordion-item__trigger {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 0;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--black);
+      text-align: left;
+    }
+    .accordion-item__trigger i {
+      transition: transform 0.3s;
+      color: var(--gray-500);
+      font-size: 0.85rem;
+    }
+    .accordion-item__trigger.open i { transform: rotate(180deg); }
+    .accordion-item__body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s;
+    }
+    .accordion-item__body.open {
+      max-height: 400px;
+    }
+    .accordion-item__content {
+      padding: 0 0 1rem;
+      color: var(--gray-600);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+    .accordion-item__content ul {
+      padding-left: 1.2rem;
+      margin: 0.5rem 0 0;
+    }
+    .accordion-item__content ul li { margin-bottom: 0.3rem; }
+
+    /* Trust Badges */
+    .trust-badges {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0.75rem;
+      margin-top: 1.75rem;
+    }
+    @media (max-width: 600px) {
+      .trust-badges { grid-template-columns: repeat(2, 1fr); }
+    }
+    .trust-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.9rem 0.5rem;
+      background: var(--gray-100);
+      border-radius: 10px;
+      text-align: center;
+    }
+    .trust-badge i {
+      font-size: 1.3rem;
+      color: var(--accent);
+    }
+    .trust-badge span {
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--gray-700);
+      letter-spacing: 0.02em;
+      line-height: 1.3;
+    }
+
+    /* ===== TABS SECTION ===== */
+    .product-tabs {
+      background: var(--white);
+      padding: 4rem 0;
+      border-top: 1px solid var(--gray-200);
+      border-bottom: 1px solid var(--gray-200);
+    }
+    .tabs {
+      border-bottom: 2px solid var(--gray-200);
+      display: flex;
+      gap: 0;
+      margin-bottom: 2.5rem;
+      overflow-x: auto;
+    }
+    .tab-btn {
+      padding: 0.9rem 1.75rem;
+      border: none;
+      background: none;
+      font-family: inherit;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--gray-500);
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      transition: color 0.2s, border-color 0.2s;
+      white-space: nowrap;
+    }
+    .tab-btn:hover { color: var(--black); }
+    .tab-btn.active {
+      color: var(--black);
+      border-bottom-color: var(--accent);
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    /* Description tab */
+    .tab-description p {
+      color: var(--gray-600);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+      font-size: 0.97rem;
+    }
+    .tab-description h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      margin: 1.75rem 0 0.75rem;
+    }
+    .tab-description ul {
+      padding-left: 1.3rem;
+      color: var(--gray-600);
+      line-height: 1.8;
+    }
+    .tab-description ul li { margin-bottom: 0.35rem; }
+
+    /* Reviews tab */
+    .reviews-header {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      margin-bottom: 2rem;
+      flex-wrap: wrap;
+    }
+    .reviews-overview {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      min-width: 120px;
+    }
+    .reviews-overview__num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3.5rem;
+      font-weight: 900;
+      line-height: 1;
+      color: var(--black);
+    }
+    .reviews-overview__stars { color: var(--accent); font-size: 1.1rem; margin: 0.3rem 0; }
+    .reviews-overview__count { font-size: 0.8rem; color: var(--gray-500); }
+    .review-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+    .review-card {
+      background: var(--gray-100);
+      border-radius: 14px;
+      padding: 1.5rem;
+    }
+    .review-card__stars { color: var(--accent); font-size: 0.9rem; margin-bottom: 0.6rem; }
+    .review-card__text {
+      color: var(--gray-700);
+      font-size: 0.9rem;
+      line-height: 1.65;
+      margin-bottom: 1rem;
+      font-style: italic;
+    }
+    .review-card__author {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+    .review-card__avatar {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      object-fit: cover;
+    }
+    .review-card__name { font-weight: 600; font-size: 0.88rem; color: var(--black); }
+    .review-card__date { font-size: 0.78rem; color: var(--gray-500); }
+
+    /* Size Guide tab */
+    .size-table-wrapper {
+      overflow-x: auto;
+    }
+    .size-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.92rem;
+    }
+    .size-table th {
+      background: var(--black);
+      color: var(--white);
+      padding: 0.85rem 1.2rem;
+      text-align: center;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+    }
+    .size-table td {
+      padding: 0.75rem 1.2rem;
+      text-align: center;
+      border-bottom: 1px solid var(--gray-200);
+      color: var(--gray-700);
+    }
+    .size-table tr:nth-child(even) td { background: var(--gray-100); }
+    .size-table tr:hover td { background: #f0ece4; }
+    .size-guide-note {
+      margin-top: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--gray-500);
+      line-height: 1.6;
+    }
+    .size-guide-note strong { color: var(--black); }
+
+    /* ===== RELATED PRODUCTS ===== */
+    .related-products { padding: 4rem 0; }
+    .related-products__grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 2.5rem;
+    }
+    @media (max-width: 1100px) {
+      .related-products__grid { grid-template-columns: repeat(3, 1fr); }
+    }
+    @media (max-width: 768px) {
+      .related-products__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .related-products__grid { grid-template-columns: 1fr; }
+    }
+
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Stock indicator */
+    .stock-indicator {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.83rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+    .stock-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+    }
+    .stock-dot--in { background: var(--success); }
+    .stock-dot--low { background: #f6a623; }
+    .stock-indicator--in { color: var(--success); }
+    .stock-indicator--low { color: #f6a623; }
+  </style>
+</head>
+<body>
+
+  <!-- ======== ANNOUNCEMENT BAR ======== -->
+  <div class="announcement-bar">
+    <span>Free shipping on orders over ₹2999 &nbsp;|&nbsp; Use code <strong>SOLE10</strong> for 10% off &nbsp;|&nbsp; New arrivals every Friday</span>
+    <button class="announcement-close" aria-label="Close"><i class="fas fa-times"></i></button>
+  </div>
+
+  <!-- ======== NAVIGATION ======== -->
+  <header class="header" id="header">
+    <nav class="nav container">
+      <a href="index.html" class="nav__logo">SOLE<span>.</span></a>
+
+      <ul class="nav__menu" id="navMenu">
+        <li><a href="index.html" class="nav__link">Home</a></li>
+        <li class="nav__dropdown">
+          <a href="products.html" class="nav__link active">Shop <i class="fas fa-chevron-down"></i></a>
+          <ul class="dropdown__menu">
+            <li><a href="products.html?cat=sneakers">Sneakers</a></li>
+            <li><a href="products.html?cat=boots">Boots</a></li>
+            <li><a href="products.html?cat=loafers">Loafers</a></li>
+            <li><a href="products.html?cat=sandals">Sandals</a></li>
+            <li><a href="products.html?cat=formal">Formal</a></li>
+            <li><a href="products.html">All Products</a></li>
+          </ul>
+        </li>
+        <li><a href="about.html" class="nav__link">Story</a></li>
+        <li><a href="contact.html" class="nav__link">Contact</a></li>
+      </ul>
+
+      <div class="nav__actions">
+        <button class="nav__icon" id="searchToggle" aria-label="Search"><i class="fas fa-search"></i></button>
+        <a href="about.html" class="nav__icon" aria-label="Account"><i class="fas fa-user"></i></a>
+        <button class="nav__icon cart-btn" id="cartToggle" aria-label="Cart">
+          <i class="fas fa-shopping-bag"></i>
+          <span class="cart-count" id="cartCount">0</span>
+        </button>
+        <button class="nav__hamburger" id="hamburger" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </nav>
+
+    <!-- Search Bar -->
+    <div class="search-bar" id="searchBar">
+      <div class="container">
+        <input type="text" placeholder="Search for shoes, brands, styles..." id="searchInput" />
+        <button id="searchSubmit"><i class="fas fa-search"></i></button>
+        <button id="searchClose"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======== CART SIDEBAR ======== -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-sidebar" id="cartSidebar">
+    <div class="cart-sidebar__header">
+      <h3>Your Bag <span id="cartItemCount">(0)</span></h3>
+      <button id="cartClose"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="cart-sidebar__body" id="cartItems">
+      <div class="cart-empty" id="cartEmpty">
+        <i class="fas fa-shopping-bag"></i>
+        <p>Your bag is empty</p>
+        <a href="products.html" class="btn btn--primary">Start Shopping</a>
+      </div>
+    </div>
+    <div class="cart-sidebar__footer" id="cartFooter" style="display:none;">
+      <div class="cart-subtotal">
+        <span>Subtotal</span>
+        <span id="cartSubtotal">₹0</span>
+      </div>
+      <p class="cart-note">Shipping & taxes calculated at checkout</p>
+      <a href="#" class="btn btn--primary btn--full">Checkout</a>
+      <a href="products.html" class="btn btn--outline btn--full">Continue Shopping</a>
+    </div>
+  </aside>
+
+  <!-- ======== PAGE HERO / BREADCRUMB ======== -->
+  <div class="page-hero--product">
+    <div class="container">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="index.html">Home</a>
+        <span><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i></span>
+        <a href="products.html">Shop</a>
+        <span><i class="fas fa-chevron-right" style="font-size:0.7rem;"></i></span>
+        <span id="breadcrumbProduct" style="color:var(--black);font-weight:500;">Loading...</span>
+      </nav>
+    </div>
+  </div>
+
+  <!-- ======== PRODUCT DETAIL ======== -->
+  <section class="product-detail">
+    <div class="container">
+      <div class="product-detail__grid">
+
+        <!-- LEFT: Gallery -->
+        <div class="product-gallery fade-in">
+          <div class="product-gallery__main">
+            <img id="mainProductImage" src="" alt="Product Image" />
+          </div>
+          <div class="product-gallery__thumbs" id="thumbStrip"></div>
+        </div>
+
+        <!-- RIGHT: Product Info -->
+        <div class="product-info fade-in">
+          <span class="product-info__category" id="productCategory"></span>
+          <h1 class="product-info__name" id="productName">Loading...</h1>
+
+          <div class="product-info__rating">
+            <span class="product-info__stars" id="productStars"></span>
+            <span class="product-info__rating-num" id="productRatingNum"></span>
+            <span class="product-info__review-count" id="productReviewCount"></span>
+          </div>
+
+          <div class="product-info__price" id="productPriceBlock">
+            <!-- Populated by JS -->
+          </div>
+
+          <div class="stock-indicator stock-indicator--in" id="stockIndicator">
+            <span class="stock-dot stock-dot--in"></span>
+            <span>In Stock</span>
+          </div>
+
+          <p class="product-info__desc" id="productDesc"></p>
+
+          <hr class="product-info__divider" />
+
+          <!-- Size Selector -->
+          <div class="size-label">
+            <span class="size-label__text">Select Size (UK)</span>
+            <button class="size-label__guide" id="sizeGuideBtn"><i class="fas fa-ruler"></i> Size Guide</button>
+          </div>
+          <div class="size-chips" id="sizeChips"></div>
+
+          <!-- Quantity -->
+          <div class="qty-label">Quantity</div>
+          <div class="qty-control">
+            <button class="qty-control__btn" id="qtyMinus" aria-label="Decrease quantity">
+              <i class="fas fa-minus"></i>
+            </button>
+            <span class="qty-control__value" id="qtyValue">1</span>
+            <button class="qty-control__btn" id="qtyPlus" aria-label="Increase quantity">
+              <i class="fas fa-plus"></i>
+            </button>
+          </div>
+
+          <!-- Action Buttons -->
+          <div class="product-info__actions">
+            <button class="btn--add-bag" id="addToBagBtn">
+              <i class="fas fa-shopping-bag"></i> Add to Bag
+            </button>
+            <button class="btn--wishlist" id="wishlistBtn">
+              <i class="far fa-heart"></i> Add to Wishlist
+            </button>
+          </div>
+
+          <!-- Accordion: Details / Shipping / Returns -->
+          <div class="accordion" id="accordion">
+
+            <div class="accordion-item">
+              <button class="accordion-item__trigger" data-accordion="details">
+                <span><i class="fas fa-tag" style="margin-right:0.5rem;color:var(--accent);"></i>Product Details</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="accordion-item__body" id="acc-details">
+                <div class="accordion-item__content">
+                  <ul id="productDetailsList">
+                    <li>Premium quality materials</li>
+                    <li>Handcrafted with precision</li>
+                    <li>Durable rubber outsole</li>
+                    <li>Cushioned footbed for all-day comfort</li>
+                    <li>Available in multiple sizes and colors</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-item__trigger" data-accordion="shipping">
+                <span><i class="fas fa-truck" style="margin-right:0.5rem;color:var(--accent);"></i>Shipping Info</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="accordion-item__body" id="acc-shipping">
+                <div class="accordion-item__content">
+                  <ul>
+                    <li>Free standard shipping on orders over ₹2,999</li>
+                    <li>Standard delivery: 4–6 business days</li>
+                    <li>Express delivery: 1–2 business days (₹199)</li>
+                    <li>Same-day delivery in Bangalore & Mumbai</li>
+                    <li>Order by 12pm for same-day dispatch</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <div class="accordion-item">
+              <button class="accordion-item__trigger" data-accordion="returns">
+                <span><i class="fas fa-undo" style="margin-right:0.5rem;color:var(--accent);"></i>Returns & Exchanges</span>
+                <i class="fas fa-chevron-down"></i>
+              </button>
+              <div class="accordion-item__body" id="acc-returns">
+                <div class="accordion-item__content">
+                  <ul>
+                    <li>30-day hassle-free returns</li>
+                    <li>Free size exchanges (one exchange per order)</li>
+                    <li>Items must be unworn and in original packaging</li>
+                    <li>Refund processed within 5–7 business days</li>
+                    <li>Contact us at hello@sole.store to initiate</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+          </div><!-- /accordion -->
+
+          <!-- Trust Badges -->
+          <div class="trust-badges">
+            <div class="trust-badge">
+              <i class="fas fa-truck"></i>
+              <span>Free Shipping</span>
+            </div>
+            <div class="trust-badge">
+              <i class="fas fa-undo"></i>
+              <span>Easy Returns</span>
+            </div>
+            <div class="trust-badge">
+              <i class="fas fa-lock"></i>
+              <span>Secure Payment</span>
+            </div>
+            <div class="trust-badge">
+              <i class="fas fa-certificate"></i>
+              <span>100% Authentic</span>
+            </div>
+          </div>
+
+        </div><!-- /product-info -->
+      </div><!-- /product-detail__grid -->
+    </div>
+  </section>
+
+  <!-- ======== TABS: Description / Reviews / Size Guide ======== -->
+  <section class="product-tabs">
+    <div class="container">
+      <div class="tabs" role="tablist">
+        <button class="tab-btn active" role="tab" aria-selected="true" data-tab="description">Description</button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="reviews">Reviews <span id="reviewTabCount" style="color:var(--gray-500);font-weight:400;">(3)</span></button>
+        <button class="tab-btn" role="tab" aria-selected="false" data-tab="sizeguide">Size Guide</button>
+      </div>
+
+      <!-- Description Tab -->
+      <div class="tab-content active" id="tab-description" role="tabpanel">
+        <div class="tab-description">
+          <p id="tabDescMain">Loading product description...</p>
+          <h3>Why You'll Love It</h3>
+          <p>Every SOLE product is a result of meticulous craftsmanship — from the initial sketch to the final stitch. We source only the finest materials, working with tanneries and textile mills that share our commitment to quality and sustainability.</p>
+          <h3>Materials & Construction</h3>
+          <ul id="tabDescMaterials">
+            <li>Upper: Premium full-grain leather / breathable knit</li>
+            <li>Lining: Soft microfibre for breathability and comfort</li>
+            <li>Footbed: Memory foam cushioned insole</li>
+            <li>Outsole: Durable vulcanised rubber with traction grooves</li>
+          </ul>
+          <h3>Care Instructions</h3>
+          <p>Wipe clean with a damp cloth. Use a quality shoe cream or conditioner to maintain the leather. Store with shoe trees in a cool, dry place away from direct sunlight. Avoid prolonged exposure to water.</p>
+        </div>
+      </div>
+
+      <!-- Reviews Tab -->
+      <div class="tab-content" id="tab-reviews" role="tabpanel">
+        <div class="reviews-header">
+          <div class="reviews-overview">
+            <span class="reviews-overview__num" id="reviewsAvgNum">4.8</span>
+            <div class="reviews-overview__stars" id="reviewsOverviewStars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+            <span class="reviews-overview__count">Based on 3 reviews</span>
+          </div>
+        </div>
+        <div class="review-cards">
+          <div class="review-card">
+            <div class="review-card__stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="review-card__text">"Absolutely stunning quality. The leather is buttery soft and the fit is spot-on. I've received so many compliments. This is my third pair from SOLE and each one has been perfect."</p>
+            <div class="review-card__author">
+              <img class="review-card__avatar" src="https://i.pravatar.cc/80?img=3" alt="Arjun K." />
+              <div>
+                <div class="review-card__name">Arjun K.</div>
+                <div class="review-card__date">August 14, 2026 · Verified Purchase</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-card__stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
+            </div>
+            <p class="review-card__text">"Great pair overall. The sizing runs slightly large so I'd recommend going half a size down. The build quality is excellent — very sturdy yet lightweight. Delivery was super quick too!"</p>
+            <div class="review-card__author">
+              <img class="review-card__avatar" src="https://i.pravatar.cc/80?img=9" alt="Meera S." />
+              <div>
+                <div class="review-card__name">Meera S.</div>
+                <div class="review-card__date">July 29, 2026 · Verified Purchase</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card">
+            <div class="review-card__stars">
+              <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p class="review-card__text">"Worth every rupee. The attention to detail is incredible — even the box and tissue paper feel premium. I wore them straight from unboxing and they were comfortable from the very first step."</p>
+            <div class="review-card__author">
+              <img class="review-card__avatar" src="https://i.pravatar.cc/80?img=15" alt="Dev P." />
+              <div>
+                <div class="review-card__name">Dev P.</div>
+                <div class="review-card__date">July 12, 2026 · Verified Purchase</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Size Guide Tab -->
+      <div class="tab-content" id="tab-sizeguide" role="tabpanel">
+        <p style="margin-bottom:1.5rem;color:var(--gray-600);font-size:0.95rem;">Use the chart below to find your perfect SOLE size. Measurements are in centimetres (foot length).</p>
+        <div class="size-table-wrapper">
+          <table class="size-table" aria-label="Size guide chart">
+            <thead>
+              <tr>
+                <th>UK Size</th>
+                <th>EU Size</th>
+                <th>US Size</th>
+                <th>Foot Length (cm)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>6</td><td>39</td><td>7</td><td>24.5</td></tr>
+              <tr><td>7</td><td>40–41</td><td>8</td><td>25.4</td></tr>
+              <tr><td>8</td><td>42</td><td>9</td><td>26.2</td></tr>
+              <tr><td>9</td><td>43</td><td>10</td><td>27.1</td></tr>
+              <tr><td>10</td><td>44</td><td>11</td><td>27.9</td></tr>
+              <tr><td>11</td><td>45–46</td><td>12</td><td>28.8</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p class="size-guide-note"><strong>Not sure about your size?</strong> Measure your foot from the heel to the longest toe while standing. If you're between sizes, we recommend sizing up for a more comfortable fit. For further assistance, <a href="contact.html" style="color:var(--accent);">contact our team</a>.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ======== RELATED PRODUCTS ======== -->
+  <section class="related-products section">
+    <div class="container">
+      <div class="section__header fade-in">
+        <p class="section__tag">You May Also Like</p>
+        <h2 class="section__title">Related <span>Products</span></h2>
+      </div>
+      <div class="related-products__grid" id="relatedGrid">
+        <!-- Injected by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ======== FOOTER ======== -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a href="index.html" class="nav__logo footer__logo">SOLE<span>.</span></a>
+          <p>Premium footwear for every story. Crafted with intention, worn with pride.</p>
+          <div class="footer__social">
+            <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+            <a href="#" aria-label="Pinterest"><i class="fab fa-pinterest"></i></a>
+          </div>
+        </div>
+        <div class="footer__links">
+          <h4>Shop</h4>
+          <ul>
+            <li><a href="products.html">All Products</a></li>
+            <li><a href="products.html?cat=sneakers">Sneakers</a></li>
+            <li><a href="products.html?cat=boots">Boots</a></li>
+            <li><a href="products.html?cat=formal">Formal</a></li>
+            <li><a href="products.html?cat=sandals">Sandals</a></li>
+            <li><a href="products.html">New Arrivals</a></li>
+          </ul>
+        </div>
+        <div class="footer__links">
+          <h4>Help</h4>
+          <ul>
+            <li><a href="#" id="footerSizeGuide">Size Guide</a></li>
+            <li><a href="#">Shipping Policy</a></li>
+            <li><a href="#">Returns & Exchanges</a></li>
+            <li><a href="#">Track Order</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
+            <li><a href="#">FAQs</a></li>
+          </ul>
+        </div>
+        <div class="footer__links">
+          <h4>Company</h4>
+          <ul>
+            <li><a href="about.html">Our Story</a></li>
+            <li><a href="#">Sustainability</a></li>
+            <li><a href="#">Careers</a></li>
+            <li><a href="#">Press</a></li>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms of Service</a></li>
+          </ul>
+        </div>
+        <div class="footer__contact">
+          <h4>Contact</h4>
+          <p><i class="fas fa-map-marker-alt"></i> 24, Design Hub, Koramangala, Bangalore</p>
+          <p><i class="fas fa-phone"></i> +91 98765 43210</p>
+          <p><i class="fas fa-envelope"></i> hello@sole.store</p>
+          <div class="footer__payments">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="Visa" />
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/UPI-Logo-vector.svg/200px-UPI-Logo-vector.svg.png" alt="UPI" />
+          </div>
+        </div>
+      </div>
+      <div class="footer__bottom">
+        <p>&copy; 2026 SOLE. All rights reserved. Made with <i class="fas fa-heart"></i> in India.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ======== BACK TO TOP ======== -->
+  <button class="back-to-top" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+  <!-- ======== TOAST ======== -->
+  <div class="toast" id="toast"></div>
+
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- ======== PRODUCT PAGE SCRIPT ======== -->
+  <script>
+  (function () {
+    'use strict';
+
+    // ---- Thumbnail image pools per category ----
+    var THUMB_IMAGES = {
+      sneakers: [
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80',
+        'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&q=80',
+        'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&q=80',
+        'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600&q=80'
+      ],
+      boots: [
+        'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?w=600&q=80',
+        'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&q=80',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80',
+        'https://images.unsplash.com/photo-1606107557195-0e29a4b5b4aa?w=600&q=80'
+      ],
+      loafers: [
+        'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=600&q=80',
+        'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&q=80',
+        'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600&q=80',
+        'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600&q=80'
+      ],
+      sandals: [
+        'https://images.unsplash.com/photo-1603487742131-4160ec999306?w=600&q=80',
+        'https://images.unsplash.com/photo-1594938298603-c8148c4b4e13?w=600&q=80',
+        'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&q=80',
+        'https://images.unsplash.com/photo-1560343090-f0409e92791a?w=600&q=80'
+      ],
+      formal: [
+        'https://images.unsplash.com/photo-1614252234498-9a2d2e4c2c0c?w=600&q=80',
+        'https://images.unsplash.com/photo-1560769629-975ec94e6a86?w=600&q=80',
+        'https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=600&q=80',
+        'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80'
+      ]
+    };
+
+    var DEFAULT_THUMBS = [
+      'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=600&q=80',
+      'https://images.unsplash.com/photo-1595950653106-6c9ebd614d3a?w=600&q=80',
+      'https://images.unsplash.com/photo-1549298916-b41d501d3772?w=600&q=80',
+      'https://images.unsplash.com/photo-1525966222134-fcfa99b8ae77?w=600&q=80'
+    ];
+
+    // ---- Helpers ----
+    function formatPrice(n) {
+      return '₹' + Number(n).toLocaleString('en-IN');
+    }
+
+    function generateStars(rating) {
+      var html = '';
+      var full = Math.floor(rating);
+      var half = (rating - full) >= 0.5;
+      for (var i = 0; i < full; i++) html += '<i class="fas fa-star"></i>';
+      if (half) html += '<i class="fas fa-star-half-alt"></i>';
+      var empty = 5 - full - (half ? 1 : 0);
+      for (var j = 0; j < empty; j++) html += '<i class="far fa-star"></i>';
+      return html;
+    }
+
+    function getParam(key) {
+      return new URLSearchParams(window.location.search).get(key);
+    }
+
+    // ---- State ----
+    var product = null;
+    var selectedSize = null;
+    var qty = 1;
+    var wishlistActive = false;
+
+    // ---- 1. Load product from URL param ----
+    var productId = parseInt(getParam('id'), 10);
+
+    if (!productId || isNaN(productId)) {
+      window.location.href = 'products.html';
+      return;
+    }
+
+    // Wait for PRODUCTS to be available
+    function init() {
+      if (typeof PRODUCTS === 'undefined' || !Array.isArray(PRODUCTS)) {
+        setTimeout(init, 50);
+        return;
+      }
+      product = PRODUCTS.find(function (p) { return p.id === productId; });
+
+      if (!product) {
+        window.location.href = 'products.html';
+        return;
+      }
+
+      populatePage();
+      initInteractions();
+      renderRelated();
+      initFadeIn();
+    }
+
+    init();
+
+    // ---- 3. Populate all fields ----
+    function populatePage() {
+      // Page title + meta
+      document.title = product.name + ' - SOLE Premium Footwear';
+      document.getElementById('pageTitle').textContent = product.name + ' - SOLE Premium Footwear';
+
+      // Breadcrumb
+      document.getElementById('breadcrumbProduct').textContent = product.name;
+
+      // Category
+      var catEl = document.getElementById('productCategory');
+      catEl.textContent = product.category.charAt(0).toUpperCase() + product.category.slice(1);
+      catEl.href = 'products.html?cat=' + product.category;
+
+      // Name
+      document.getElementById('productName').textContent = product.name;
+
+      // Stars + rating
+      document.getElementById('productStars').innerHTML = generateStars(product.rating);
+      document.getElementById('productRatingNum').textContent = product.rating.toFixed(1);
+      document.getElementById('productReviewCount').textContent = '(' + product.reviews + ' reviews)';
+      // Update review tab count
+      document.getElementById('reviewTabCount').textContent = '(' + product.reviews + ')';
+
+      // Price
+      var priceBlock = document.getElementById('productPriceBlock');
+      var priceHTML = '<span class="product-info__price-current">' + formatPrice(product.price) + '</span>';
+      if (product.sale && product.originalPrice) {
+        priceHTML += '<span class="product-info__price-original">' + formatPrice(product.originalPrice) + '</span>';
+        var savings = Math.round((1 - product.price / product.originalPrice) * 100);
+        priceHTML += '<span class="product-info__price-badge">-' + savings + '% OFF</span>';
+      }
+      priceBlock.innerHTML = priceHTML;
+
+      // Badge on stock indicator if new
+      if (product.new) {
+        var stockEl = document.getElementById('stockIndicator');
+        stockEl.innerHTML = '<span class="stock-dot stock-dot--in"></span><span>In Stock</span><span class="badge" style="margin-left:0.5rem;background:var(--success);color:#fff;font-size:0.7rem;padding:0.15rem 0.5rem;border-radius:4px;">NEW</span>';
+      }
+
+      // Description
+      document.getElementById('productDesc').textContent = product.description;
+      document.getElementById('tabDescMain').textContent = product.description + ' SOLE designs are made for those who appreciate the details — from the subtle tonal stitching on the upper to the signature embossed logo on the insole. Each pair undergoes a 24-point quality inspection before it reaches you.';
+
+      // Gallery images
+      var thumbs = THUMB_IMAGES[product.category] || DEFAULT_THUMBS;
+      // Make sure product's own image is first
+      var allImages = [product.image];
+      thumbs.forEach(function (img) {
+        if (img !== product.image && allImages.length < 4) allImages.push(img);
+      });
+      while (allImages.length < 4) {
+        allImages.push(DEFAULT_THUMBS[allImages.length % DEFAULT_THUMBS.length]);
+      }
+
+      // Main image
+      var mainImg = document.getElementById('mainProductImage');
+      mainImg.src = allImages[0];
+      mainImg.alt = product.name;
+
+      // Thumbnails
+      var thumbStrip = document.getElementById('thumbStrip');
+      thumbStrip.innerHTML = '';
+      allImages.forEach(function (imgSrc, idx) {
+        var thumb = document.createElement('div');
+        thumb.className = 'product-gallery__thumb' + (idx === 0 ? ' active' : '');
+        thumb.dataset.index = idx;
+        var img = document.createElement('img');
+        img.src = imgSrc;
+        img.alt = product.name + ' view ' + (idx + 1);
+        img.loading = 'lazy';
+        thumb.appendChild(img);
+        // 4. Thumbnail click changes main image
+        thumb.addEventListener('click', function () {
+          mainImg.src = imgSrc;
+          document.querySelectorAll('.product-gallery__thumb').forEach(function (t) { t.classList.remove('active'); });
+          thumb.classList.add('active');
+        });
+        thumbStrip.appendChild(thumb);
+      });
+
+      // Sizes
+      renderSizeChips();
+
+      // Update description tab materials based on category
+      var materialsMap = {
+        sneakers: ['Upper: Breathable engineered knit or premium suede', 'Lining: Moisture-wicking mesh', 'Footbed: EVA memory foam insole', 'Outsole: Flexible rubber with multi-directional traction'],
+        boots:    ['Upper: Full-grain waterproof leather', 'Lining: Warm fleece or breathable leather lining', 'Footbed: Ortholite cushioned insole', 'Outsole: Lug rubber sole with slip resistance'],
+        loafers:  ['Upper: Soft calfskin or suede leather', 'Lining: Natural leather for breathability', 'Footbed: Memory foam padded insole', 'Outsole: Leather with rubber heel cap'],
+        sandals:  ['Upper: Genuine leather straps with adjustable buckle', 'Footbed: Contoured cork and foam midsole', 'Outsole: Lightweight EVA with rubber pods'],
+        formal:   ['Upper: Hand-burnished calf leather', 'Lining: Full leather lining', 'Construction: Goodyear-welted for durability', 'Outsole: Half leather, half rubber heel']
+      };
+      var mats = materialsMap[product.category] || materialsMap['sneakers'];
+      var matList = document.getElementById('tabDescMaterials');
+      matList.innerHTML = mats.map(function (m) { return '<li>' + m + '</li>'; }).join('');
+
+      // Reviews overview — use product rating
+      document.getElementById('reviewsAvgNum').textContent = product.rating.toFixed(1);
+      document.getElementById('reviewsOverviewStars').innerHTML = generateStars(product.rating);
+    }
+
+    // ---- Render size chips ----
+    function renderSizeChips() {
+      var container = document.getElementById('sizeChips');
+      container.innerHTML = '';
+      product.sizes.forEach(function (size) {
+        var chip = document.createElement('button');
+        chip.className = 'size-chip';
+        chip.textContent = 'UK ' + size;
+        chip.dataset.size = size;
+        chip.addEventListener('click', function () {
+          document.querySelectorAll('.size-chip').forEach(function (c) { c.classList.remove('active'); });
+          chip.classList.add('active');
+          selectedSize = size;
+        });
+        container.appendChild(chip);
+      });
+    }
+
+    // ---- 6. Quantity controls ----
+    function updateQtyUI() {
+      document.getElementById('qtyValue').textContent = qty;
+      document.getElementById('qtyMinus').disabled = qty <= 1;
+      document.getElementById('qtyPlus').disabled = qty >= 10;
+    }
+
+    // ---- All interactions ----
+    function initInteractions() {
+
+      // Qty controls
+      document.getElementById('qtyMinus').addEventListener('click', function () {
+        if (qty > 1) { qty--; updateQtyUI(); }
+      });
+      document.getElementById('qtyPlus').addEventListener('click', function () {
+        if (qty < 10) { qty++; updateQtyUI(); }
+      });
+      updateQtyUI();
+
+      // ---- 7. Add to Bag ----
+      document.getElementById('addToBagBtn').addEventListener('click', function () {
+        if (!selectedSize) {
+          // Pulse the size chips to draw attention
+          var sizeSection = document.getElementById('sizeChips');
+          sizeSection.style.outline = '2px solid var(--danger)';
+          sizeSection.style.borderRadius = '8px';
+          setTimeout(function () {
+            sizeSection.style.outline = '';
+          }, 1500);
+          if (typeof SOLE !== 'undefined' && SOLE.showToast) {
+            SOLE.showToast('Please select a size first', 'error');
+          } else {
+            showPageToast('Please select a size first', 'error');
+          }
+          return;
+        }
+        // Add qty times
+        if (typeof SOLE !== 'undefined' && SOLE.addToCart) {
+          for (var i = 0; i < qty; i++) {
+            SOLE.addToCart(product.id, selectedSize);
+          }
+        } else {
+          // Fallback: directly push to localStorage
+          var cart = JSON.parse(localStorage.getItem('sole_cart') || '[]');
+          var key = product.id + '-' + selectedSize;
+          var existing = cart.find(function (item) { return item.key === key; });
+          if (existing) {
+            existing.qty += qty;
+          } else {
+            cart.push({ key: key, id: product.id, size: selectedSize, qty: qty });
+          }
+          localStorage.setItem('sole_cart', JSON.stringify(cart));
+          showPageToast(qty + 'x ' + product.name + ' (UK ' + selectedSize + ') added to bag!', 'success');
+        }
+      });
+
+      // ---- 8. Wishlist toggle ----
+      var wishlistBtn = document.getElementById('wishlistBtn');
+      wishlistBtn.addEventListener('click', function () {
+        wishlistActive = !wishlistActive;
+        if (wishlistActive) {
+          wishlistBtn.classList.add('active');
+          wishlistBtn.innerHTML = '<i class="fas fa-heart"></i> Saved to Wishlist';
+          showPageToast(product.name + ' added to wishlist!', 'success');
+        } else {
+          wishlistBtn.classList.remove('active');
+          wishlistBtn.innerHTML = '<i class="far fa-heart"></i> Add to Wishlist';
+          showPageToast('Removed from wishlist', 'error');
+        }
+      });
+
+      // ---- 9. Accordion ----
+      document.querySelectorAll('.accordion-item__trigger').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var target = btn.dataset.accordion;
+          var body = document.getElementById('acc-' + target);
+          var isOpen = body.classList.contains('open');
+          // Close all
+          document.querySelectorAll('.accordion-item__body').forEach(function (b) { b.classList.remove('open'); });
+          document.querySelectorAll('.accordion-item__trigger').forEach(function (b) { b.classList.remove('open'); });
+          // Toggle clicked
+          if (!isOpen) {
+            body.classList.add('open');
+            btn.classList.add('open');
+          }
+        });
+      });
+
+      // ---- 10. Tabs ----
+      document.querySelectorAll('.tab-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var tabId = btn.dataset.tab;
+          document.querySelectorAll('.tab-btn').forEach(function (b) {
+            b.classList.remove('active');
+            b.setAttribute('aria-selected', 'false');
+          });
+          document.querySelectorAll('.tab-content').forEach(function (c) { c.classList.remove('active'); });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected', 'true');
+          var panel = document.getElementById('tab-' + tabId);
+          if (panel) panel.classList.add('active');
+        });
+      });
+
+      // Size guide button → switch to size guide tab
+      document.getElementById('sizeGuideBtn').addEventListener('click', function () {
+        var sizeTab = document.querySelector('[data-tab="sizeguide"]');
+        if (sizeTab) sizeTab.click();
+        document.querySelector('.product-tabs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      var footerGuide = document.getElementById('footerSizeGuide');
+      if (footerGuide) {
+        footerGuide.addEventListener('click', function (e) {
+          e.preventDefault();
+          var sizeTab = document.querySelector('[data-tab="sizeguide"]');
+          if (sizeTab) sizeTab.click();
+          document.querySelector('.product-tabs').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+      }
+    }
+
+    // ---- 11. Render related products ----
+    function renderRelated() {
+      var grid = document.getElementById('relatedGrid');
+      grid.innerHTML = '';
+
+      var related = PRODUCTS.filter(function (p) {
+        return p.category === product.category && p.id !== product.id;
+      });
+
+      // If not enough in same category, fill with others
+      if (related.length < 4) {
+        var others = PRODUCTS.filter(function (p) {
+          return p.id !== product.id && related.indexOf(p) === -1;
+        });
+        related = related.concat(others);
+      }
+
+      related.slice(0, 4).forEach(function (p) {
+        var card;
+        if (typeof SOLE !== 'undefined' && SOLE.createProductCard) {
+          card = SOLE.createProductCard(p);
+        } else {
+          // Fallback card
+          card = document.createElement('div');
+          card.className = 'product-card fade-in';
+          var savings = p.sale && p.originalPrice
+            ? '<span class="badge badge--sale">-' + Math.round((1 - p.price / p.originalPrice) * 100) + '%</span>'
+            : (p.badge ? '<span class="badge badge--' + p.badge + '">' + p.badge.toUpperCase() + '</span>' : '');
+          card.innerHTML = '<a href="product.html?id=' + p.id + '" class="product-card__img-wrap">'
+            + '<img src="' + p.image + '" alt="' + p.name + '" loading="lazy" />' + savings
+            + '</a><div class="product-card__info">'
+            + '<p class="product-card__category">' + p.category + '</p>'
+            + '<h3 class="product-card__name"><a href="product.html?id=' + p.id + '">' + p.name + '</a></h3>'
+            + '<div class="product-card__rating">' + generateStars(p.rating) + ' <span>(' + p.reviews + ')</span></div>'
+            + '<div class="product-card__price">'
+            + (p.sale && p.originalPrice ? '<span class="price--original">' + formatPrice(p.originalPrice) + '</span> ' : '')
+            + '<span class="price--current">' + formatPrice(p.price) + '</span>'
+            + '</div>'
+            + '<button class="btn btn--primary btn--full" onclick="window.location.href=\'product.html?id=' + p.id + '\'">View Product</button>'
+            + '</div>';
+        }
+        if (card) grid.appendChild(card);
+      });
+    }
+
+    // ---- 12. Fade-in on scroll ----
+    function initFadeIn() {
+      var els = document.querySelectorAll('.fade-in');
+      if (!els.length) return;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+      els.forEach(function (el) { io.observe(el); });
+    }
+
+    // ---- Fallback toast (if main.js doesn't expose SOLE.showToast yet) ----
+    function showPageToast(msg, type) {
+      var toast = document.getElementById('toast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.className = 'toast toast--' + (type || 'success') + ' toast--visible';
+      clearTimeout(showPageToast._timer);
+      showPageToast._timer = setTimeout(function () {
+        toast.classList.remove('toast--visible');
+      }, 3000);
+    }
+
+  })();
+  </script>
+
+</body>
+</html>
