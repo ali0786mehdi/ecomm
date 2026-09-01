@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout — SOLE Premium Footwear</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    :root {
+      --black: #0a0a0a;
+      --white: #fff;
+      --off-white: #f8f7f4;
+      --accent: #c9a96e;
+      --danger: #e53e3e;
+      --success: #38a169;
+      --border: #e2e0db;
+      --muted: #6b7280;
+      --radius: 10px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--off-white);
+      color: var(--black);
+      min-height: 100vh;
+    }
+
+    /* ── CHECKOUT HEADER ─────────────────────────────── */
+    .checkout-header {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+    }
+
+    .checkout-header__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .checkout-header__logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: 0.08em;
+    }
+
+    .checkout-header__secure {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--muted);
+    }
+
+    /* ── PROGRESS BAR ────────────────────────────────── */
+    .checkout-progress {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0.75rem 2rem;
+    }
+
+    .checkout-progress__inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0;
+    }
+
+    .checkout-progress__step {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.78rem;
+      font-weight: 500;
+      color: #b0aca5;
+      position: relative;
+    }
+
+    .checkout-progress__step.active {
+      color: var(--black);
+    }
+
+    .checkout-progress__step.done {
+      color: var(--success);
+    }
+
+    .checkout-progress__num {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      background: #e2e0db;
+      color: #b0aca5;
+      font-size: 0.72rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .checkout-progress__step.active .checkout-progress__num {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .checkout-progress__step.done .checkout-progress__num {
+      background: var(--success);
+      color: var(--white);
+    }
+
+    .checkout-progress__connector {
+      width: 48px;
+      height: 2px;
+      background: #e2e0db;
+      margin: 0 0.25rem;
+      flex-shrink: 0;
+    }
+
+    .checkout-progress__connector.done {
+      background: var(--success);
+    }
+
+    /* ── MAIN LAYOUT ─────────────────────────────────── */
+    .checkout-page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2rem 1.5rem 4rem;
+    }
+
+    .checkout-layout {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+
+    @media (min-width: 900px) {
+      .checkout-layout {
+        grid-template-columns: 60% 1fr;
+      }
+    }
+
+    /* ── CHECKOUT SECTION CARDS ──────────────────────── */
+    .checkout-section {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem 1.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .checkout-section:last-child { margin-bottom: 0; }
+
+    .checkout-section h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 1.25rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── FORM ELEMENTS ───────────────────────────────── */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.85rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .form-row.two-col {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .form-group label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--black);
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.92rem;
+      padding: 0.65rem 0.85rem;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: var(--white);
+      color: var(--black);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus,
+    .form-group select:focus {
+      border-color: var(--black);
+    }
+
+    .form-group input.error,
+    .form-group select.error {
+      border-color: var(--danger);
+    }
+
+    .form-group .field-error {
+      font-size: 0.75rem;
+      color: var(--danger);
+      display: none;
+    }
+
+    .form-group .field-error.visible { display: block; }
+
+    .form-check {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--muted);
+      cursor: pointer;
+      user-select: none;
+      margin-top: 0.25rem;
+    }
+
+    .form-check input[type="checkbox"] {
+      width: 16px;
+      height: 16px;
+      accent-color: var(--black);
+      cursor: pointer;
+    }
+
+    /* ── DELIVERY OPTIONS ────────────────────────────── */
+    .delivery-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .delivery-option {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+      position: relative;
+    }
+
+    .delivery-option:hover {
+      border-color: #bbb;
+    }
+
+    .delivery-option.selected {
+      border-color: var(--black);
+      background: #fafaf9;
+    }
+
+    .delivery-option input[type="radio"] {
+      accent-color: var(--black);
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+    }
+
+    .delivery-option__info {
+      flex: 1;
+    }
+
+    .delivery-option__title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .delivery-option__desc {
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    .delivery-option__price {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .delivery-option__price.free {
+      color: var(--success);
+    }
+
+    /* ── PAYMENT OPTIONS ─────────────────────────────── */
+    .payment-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .payment-option {
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .payment-option.selected {
+      border-color: var(--black);
+    }
+
+    .payment-option__header {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      padding: 1rem 1.1rem;
+      cursor: pointer;
+      background: var(--white);
+      transition: background 0.2s;
+    }
+
+    .payment-option.selected .payment-option__header {
+      background: #fafaf9;
+    }
+
+    .payment-option__header input[type="radio"] {
+      accent-color: var(--black);
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+    }
+
+    .payment-option__icon {
+      font-size: 1.35rem;
+      flex-shrink: 0;
+    }
+
+    .payment-option__label {
+      flex: 1;
+    }
+
+    .payment-option__label strong {
+      font-size: 0.9rem;
+      font-weight: 600;
+      display: block;
+      color: var(--black);
+    }
+
+    .payment-option__label span {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    .payment-option__body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.3s ease;
+      padding: 0 1.1rem;
+      background: #fafaf9;
+      border-top: 0px solid var(--border);
+    }
+
+    .payment-option.selected .payment-option__body {
+      max-height: 300px;
+      padding: 1rem 1.1rem;
+      border-top-width: 1px;
+    }
+
+    .payment-option__body .form-row {
+      margin-bottom: 0;
+    }
+
+    /* ── ORDER SUMMARY ───────────────────────────────── */
+    .order-summary-wrapper {
+      position: relative;
+    }
+
+    .order-summary {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      position: sticky;
+      top: 1.5rem;
+    }
+
+    .order-summary h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--black);
+      margin-bottom: 1.1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .order-items {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .order-item {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .order-item__img-wrap {
+      position: relative;
+      flex-shrink: 0;
+    }
+
+    .order-item__img {
+      width: 60px;
+      height: 60px;
+      object-fit: cover;
+      border-radius: 6px;
+      border: 1px solid var(--border);
+      background: var(--off-white);
+    }
+
+    .order-item__qty-badge {
+      position: absolute;
+      top: -7px;
+      right: -7px;
+      background: var(--muted);
+      color: var(--white);
+      font-size: 0.65rem;
+      font-weight: 700;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .order-item__info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .order-item__name {
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: var(--black);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .order-item__meta {
+      font-size: 0.74rem;
+      color: var(--muted);
+      margin-top: 0.15rem;
+    }
+
+    .order-item__price {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--black);
+      flex-shrink: 0;
+    }
+
+    /* ── SUMMARY TOTALS ──────────────────────────────── */
+    .summary-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 1rem 0;
+    }
+
+    .summary-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.5rem;
+    }
+
+    .summary-row span:last-child { color: var(--black); font-weight: 500; }
+
+    .summary-row.discount span:last-child { color: var(--success); }
+
+    .order-total-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.75rem;
+      padding-top: 0.75rem;
+      border-top: 2px solid var(--black);
+    }
+
+    .order-total-row .label {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--black);
+      font-family: 'Playfair Display', serif;
+    }
+
+    .order-total-row .amount {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    /* ── COUPON ROW ──────────────────────────────────── */
+    .coupon-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .coupon-row input {
+      flex: 1;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      padding: 0.6rem 0.85rem;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      background: var(--white);
+      color: var(--black);
+      outline: none;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: border-color 0.2s;
+    }
+
+    .coupon-row input:focus { border-color: var(--black); }
+    .coupon-row input.error { border-color: var(--danger); }
+    .coupon-row input.success { border-color: var(--success); }
+
+    .coupon-row button {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+      font-weight: 600;
+      padding: 0.6rem 1rem;
+      background: var(--black);
+      color: var(--white);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.2s;
+      white-space: nowrap;
+    }
+
+    .coupon-row button:hover { background: #222; }
+
+    .coupon-msg {
+      font-size: 0.76rem;
+      margin-top: -0.5rem;
+      margin-bottom: 0.75rem;
+      display: none;
+    }
+
+    .coupon-msg.success { color: var(--success); display: block; }
+    .coupon-msg.error { color: var(--danger); display: block; }
+
+    /* ── PLACE ORDER BUTTON ──────────────────────────── */
+    .btn-place-order {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      background: var(--black);
+      color: var(--white);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+      margin-top: 1.25rem;
+    }
+
+    .btn-place-order:hover { background: #1a1a1a; }
+    .btn-place-order:active { transform: scale(0.99); }
+
+    /* ── TRUST BADGES ────────────────────────────────── */
+    .trust-badges {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      margin-top: 1.25rem;
+      padding-top: 1rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .trust-badge {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.3rem;
+      text-align: center;
+    }
+
+    .trust-badge__icon { font-size: 1.3rem; }
+
+    .trust-badge__text {
+      font-size: 0.68rem;
+      color: var(--muted);
+      font-weight: 500;
+      line-height: 1.3;
+    }
+
+    /* ── RESPONSIVE ──────────────────────────────────── */
+    @media (max-width: 600px) {
+      .form-row.two-col { grid-template-columns: 1fr; }
+      .checkout-progress__connector { width: 24px; }
+      .checkout-progress__step span { display: none; }
+    }
+
+    /* ── EMPTY / LOADING STATE ───────────────────────── */
+    .order-items-loading {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.85rem;
+      padding: 1.5rem 0;
+    }
+
+    /* ── SHIMMER PLACEHOLDER ─────────────────────────── */
+    @keyframes shimmer {
+      0% { background-position: -400px 0; }
+      100% { background-position: 400px 0; }
+    }
+
+    .shimmer {
+      background: linear-gradient(90deg, #f0ede8 25%, #e8e5e0 50%, #f0ede8 75%);
+      background-size: 800px 100%;
+      animation: shimmer 1.4s infinite;
+      border-radius: 4px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ═══════════════════════════════════════════
+       CHECKOUT HEADER
+  ════════════════════════════════════════════ -->
+  <header class="checkout-header">
+    <div class="checkout-header__inner">
+      <a href="index.html" class="checkout-header__logo">SOLE</a>
+      <div class="checkout-header__secure">
+        <span>🔒</span>
+        <span>Secure Checkout</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ═══════════════════════════════════════════
+       PROGRESS BAR
+  ════════════════════════════════════════════ -->
+  <div class="checkout-progress">
+    <div class="checkout-progress__inner">
+      <div class="checkout-progress__step done">
+        <div class="checkout-progress__num">✓</div>
+        <span>Cart</span>
+      </div>
+      <div class="checkout-progress__connector done"></div>
+      <div class="checkout-progress__step active">
+        <div class="checkout-progress__num">2</div>
+        <span>Details</span>
+      </div>
+      <div class="checkout-progress__connector"></div>
+      <div class="checkout-progress__step">
+        <div class="checkout-progress__num">3</div>
+        <span>Payment</span>
+      </div>
+      <div class="checkout-progress__connector"></div>
+      <div class="checkout-progress__step">
+        <div class="checkout-progress__num">4</div>
+        <span>Confirm</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       MAIN CHECKOUT PAGE
+  ════════════════════════════════════════════ -->
+  <main class="checkout-page">
+    <div class="checkout-layout">
+
+      <!-- ─── LEFT: CHECKOUT FORM ──────────────────── -->
+      <div class="checkout-form-col">
+        <form id="checkoutForm" novalidate>
+
+          <!-- Section 1: Contact Information -->
+          <div class="checkout-section">
+            <h2>Contact Information</h2>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+                <span class="field-error" id="emailError">Please enter a valid email address.</span>
+              </div>
+            </div>
+            <label class="form-check">
+              <input type="checkbox" id="emailOffers" name="emailOffers" checked />
+              Email me with news and exclusive offers
+            </label>
+          </div>
+
+          <!-- Section 2: Delivery Address -->
+          <div class="checkout-section">
+            <h2>Delivery Address</h2>
+
+            <div class="form-row two-col">
+              <div class="form-group">
+                <label for="firstName">First Name</label>
+                <input type="text" id="firstName" name="firstName" placeholder="Riya" autocomplete="given-name" required />
+                <span class="field-error" id="firstNameError">First name is required.</span>
+              </div>
+              <div class="form-group">
+                <label for="lastName">Last Name</label>
+                <input type="text" id="lastName" name="lastName" placeholder="Sharma" autocomplete="family-name" required />
+                <span class="field-error" id="lastNameError">Last name is required.</span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="address1">Address Line 1</label>
+                <input type="text" id="address1" name="address1" placeholder="House / Flat No., Street Name" autocomplete="address-line1" required />
+                <span class="field-error" id="address1Error">Address is required.</span>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="address2">Address Line 2 <em style="font-style:normal;color:var(--muted);font-weight:400">(Optional)</em></label>
+                <input type="text" id="address2" name="address2" placeholder="Apartment, landmark, etc." autocomplete="address-line2" />
+              </div>
+            </div>
+
+            <div class="form-row two-col">
+              <div class="form-group">
+                <label for="city">City</label>
+                <input type="text" id="city" name="city" placeholder="Mumbai" autocomplete="address-level2" required />
+                <span class="field-error" id="cityError">City is required.</span>
+              </div>
+              <div class="form-group">
+                <label for="state">State</label>
+                <select id="state" name="state" autocomplete="address-level1" required>
+                  <option value="">Select State</option>
+                  <option value="AN">Andaman and Nicobar Islands</option>
+                  <option value="AP">Andhra Pradesh</option>
+                  <option value="AR">Arunachal Pradesh</option>
+                  <option value="AS">Assam</option>
+                  <option value="BR">Bihar</option>
+                  <option value="CH">Chandigarh</option>
+                  <option value="CT">Chhattisgarh</option>
+                  <option value="DN">Dadra and Nagar Haveli and Daman and Diu</option>
+                  <option value="DL">Delhi</option>
+                  <option value="GA">Goa</option>
+                  <option value="GJ">Gujarat</option>
+                  <option value="HR">Haryana</option>
+                  <option value="HP">Himachal Pradesh</option>
+                  <option value="JK">Jammu and Kashmir</option>
+                  <option value="JH">Jharkhand</option>
+                  <option value="KA">Karnataka</option>
+                  <option value="KL">Kerala</option>
+                  <option value="LA">Ladakh</option>
+                  <option value="LD">Lakshadweep</option>
+                  <option value="MP">Madhya Pradesh</option>
+                  <option value="MH">Maharashtra</option>
+                  <option value="MN">Manipur</option>
+                  <option value="ML">Meghalaya</option>
+                  <option value="MZ">Mizoram</option>
+                  <option value="NL">Nagaland</option>
+                  <option value="OR">Odisha</option>
+                  <option value="PY">Puducherry</option>
+                  <option value="PB">Punjab</option>
+                  <option value="RJ">Rajasthan</option>
+                  <option value="SK">Sikkim</option>
+                  <option value="TN">Tamil Nadu</option>
+                  <option value="TG">Telangana</option>
+                  <option value="TR">Tripura</option>
+                  <option value="UP">Uttar Pradesh</option>
+                  <option value="UT">Uttarakhand</option>
+                  <option value="WB">West Bengal</option>
+                </select>
+                <span class="field-error" id="stateError">Please select a state.</span>
+              </div>
+            </div>
+
+            <div class="form-row two-col">
+              <div class="form-group">
+                <label for="pinCode">PIN Code</label>
+                <input type="text" id="pinCode" name="pinCode" placeholder="400001" maxlength="6" inputmode="numeric" pattern="[0-9]{6}" autocomplete="postal-code" required />
+                <span class="field-error" id="pinCodeError">Enter a valid 6-digit PIN code.</span>
+              </div>
+              <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" maxlength="13" inputmode="tel" autocomplete="tel" required />
+                <span class="field-error" id="phoneError">Enter a valid 10-digit phone number.</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Section 3: Delivery Method -->
+          <div class="checkout-section">
+            <h2>Delivery Method</h2>
+            <div class="delivery-options">
+
+              <label class="delivery-option selected" id="deliveryStandardLabel">
+                <input type="radio" name="deliveryMethod" value="standard" id="deliveryStandard" checked />
+                <div class="delivery-option__info">
+                  <div class="delivery-option__title">Standard Delivery</div>
+                  <div class="delivery-option__desc">3–5 business days</div>
+                </div>
+                <div class="delivery-option__price" id="standardPrice">₹99</div>
+              </label>
+
+              <label class="delivery-option" id="deliveryExpressLabel">
+                <input type="radio" name="deliveryMethod" value="express" id="deliveryExpress" />
+                <div class="delivery-option__info">
+                  <div class="delivery-option__title">Express Delivery</div>
+                  <div class="delivery-option__desc">1–2 business days</div>
+                </div>
+                <div class="delivery-option__price">₹199</div>
+              </label>
+
+            </div>
+          </div>
+
+          <!-- Section 4: Payment Method -->
+          <div class="checkout-section">
+            <h2>Payment Method</h2>
+            <div class="payment-options">
+
+              <!-- UPI -->
+              <div class="payment-option selected" id="paymentUpiWrap">
+                <div class="payment-option__header" onclick="selectPayment('upi')">
+                  <input type="radio" name="paymentMethod" value="upi" id="paymentUpi" checked />
+                  <div class="payment-option__icon">📱</div>
+                  <div class="payment-option__label">
+                    <strong>UPI</strong>
+                    <span>Google Pay · PhonePe · Paytm</span>
+                  </div>
+                </div>
+                <div class="payment-option__body">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="upiId">UPI ID</label>
+                      <input type="text" id="upiId" name="upiId" placeholder="yourname@upi" />
+                      <span class="field-error" id="upiIdError">Please enter a valid UPI ID.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Card -->
+              <div class="payment-option" id="paymentCardWrap">
+                <div class="payment-option__header" onclick="selectPayment('card')">
+                  <input type="radio" name="paymentMethod" value="card" id="paymentCard" />
+                  <div class="payment-option__icon">💳</div>
+                  <div class="payment-option__label">
+                    <strong>Credit / Debit Card</strong>
+                    <span>Visa · Mastercard · RuPay</span>
+                  </div>
+                </div>
+                <div class="payment-option__body">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="cardNumber">Card Number</label>
+                      <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456" maxlength="19" inputmode="numeric" />
+                      <span class="field-error" id="cardNumberError">Enter a valid 16-digit card number.</span>
+                    </div>
+                  </div>
+                  <div class="form-row two-col">
+                    <div class="form-group">
+                      <label for="cardExpiry">Expiry Date</label>
+                      <input type="text" id="cardExpiry" name="cardExpiry" placeholder="MM / YY" maxlength="7" />
+                      <span class="field-error" id="cardExpiryError">Enter a valid expiry date.</span>
+                    </div>
+                    <div class="form-group">
+                      <label for="cardCvv">CVV</label>
+                      <input type="password" id="cardCvv" name="cardCvv" placeholder="•••" maxlength="4" inputmode="numeric" />
+                      <span class="field-error" id="cardCvvError">Enter a valid CVV.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Net Banking -->
+              <div class="payment-option" id="paymentNetbankWrap">
+                <div class="payment-option__header" onclick="selectPayment('netbanking')">
+                  <input type="radio" name="paymentMethod" value="netbanking" id="paymentNetbank" />
+                  <div class="payment-option__icon">🏦</div>
+                  <div class="payment-option__label">
+                    <strong>Net Banking</strong>
+                    <span>All major banks supported</span>
+                  </div>
+                </div>
+                <div class="payment-option__body">
+                  <div class="form-row">
+                    <div class="form-group">
+                      <label for="bankSelect">Select Bank</label>
+                      <select id="bankSelect" name="bankSelect">
+                        <option value="">-- Choose Bank --</option>
+                        <option value="sbi">State Bank of India</option>
+                        <option value="hdfc">HDFC Bank</option>
+                        <option value="icici">ICICI Bank</option>
+                        <option value="axis">Axis Bank</option>
+                        <option value="kotak">Kotak Mahindra Bank</option>
+                        <option value="pnb">Punjab National Bank</option>
+                        <option value="bob">Bank of Baroda</option>
+                        <option value="canara">Canara Bank</option>
+                        <option value="union">Union Bank of India</option>
+                        <option value="idfc">IDFC First Bank</option>
+                        <option value="yes">Yes Bank</option>
+                        <option value="indusind">IndusInd Bank</option>
+                        <option value="other">Other</option>
+                      </select>
+                      <span class="field-error" id="bankSelectError">Please select a bank.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Cash on Delivery -->
+              <div class="payment-option" id="paymentCodWrap">
+                <div class="payment-option__header" onclick="selectPayment('cod')">
+                  <input type="radio" name="paymentMethod" value="cod" id="paymentCod" />
+                  <div class="payment-option__icon">💵</div>
+                  <div class="payment-option__label">
+                    <strong>Cash on Delivery</strong>
+                    <span>Available for orders up to ₹5,000</span>
+                  </div>
+                </div>
+                <div class="payment-option__body">
+                  <p style="font-size:0.82rem;color:var(--muted);line-height:1.5;">
+                    Pay in cash when your order is delivered. A nominal handling fee of ₹20 may apply.
+                  </p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </form>
+      </div><!-- /checkout-form-col -->
+
+      <!-- ─── RIGHT: ORDER SUMMARY ──────────────────── -->
+      <div class="order-summary-wrapper">
+        <div class="order-summary">
+          <h2>Order Summary</h2>
+
+          <!-- Cart items rendered by JS -->
+          <div class="order-items" id="orderItemsList">
+            <div class="order-items-loading">Loading cart…</div>
+          </div>
+
+          <div class="summary-divider"></div>
+
+          <!-- Coupon -->
+          <div class="coupon-row">
+            <input type="text" id="couponInput" placeholder="COUPON CODE" aria-label="Coupon code" />
+            <button type="button" id="applyCoupon">Apply</button>
+          </div>
+          <div class="coupon-msg" id="couponMsg"></div>
+
+          <!-- Totals -->
+          <div class="summary-row">
+            <span>Subtotal</span>
+            <span id="summarySubtotal">₹0</span>
+          </div>
+          <div class="summary-row">
+            <span>Shipping</span>
+            <span id="summaryShipping">₹0</span>
+          </div>
+          <div class="summary-row discount" id="discountRow" style="display:none;">
+            <span>Discount (SOLE10)</span>
+            <span id="summaryDiscount">-₹0</span>
+          </div>
+
+          <div class="order-total-row">
+            <span class="label">Order Total</span>
+            <span class="amount" id="summaryTotal">₹0</span>
+          </div>
+
+          <!-- Place Order -->
+          <button type="button" class="btn-place-order" id="placeOrderBtn">
+            Place Order →
+          </button>
+
+          <!-- Trust Badges -->
+          <div class="trust-badges">
+            <div class="trust-badge">
+              <div class="trust-badge__icon">🔒</div>
+              <div class="trust-badge__text">Secure<br>SSL</div>
+            </div>
+            <div class="trust-badge">
+              <div class="trust-badge__icon">↩️</div>
+              <div class="trust-badge__text">Easy<br>Returns</div>
+            </div>
+            <div class="trust-badge">
+              <div class="trust-badge__icon">✅</div>
+              <div class="trust-badge__text">Authentic<br>Products</div>
+            </div>
+          </div>
+
+        </div><!-- /order-summary -->
+      </div><!-- /order-summary-wrapper -->
+
+    </div><!-- /checkout-layout -->
+  </main>
+
+  <!-- ═══════════════════════════════════════════
+       SCRIPTS
+  ════════════════════════════════════════════ -->
+  <script src="js/products.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+  (function () {
+    'use strict';
+
+    /* ──────────────────────────────────────────
+       1. CONSTANTS & STATE
+    ────────────────────────────────────────── */
+    const CART_KEY       = 'sole_cart';
+    const ORDER_KEY      = 'sole_last_order';
+    const COUPON_CODE    = 'SOLE10';
+    const COUPON_PCT     = 10;
+    const FREE_SHIP_MIN  = 2999;
+    const SHIP_STANDARD  = 99;
+    const SHIP_EXPRESS   = 199;
+
+    let cart            = [];
+    let subtotal        = 0;
+    let shippingCost    = 0;
+    let discountAmt     = 0;
+    let couponApplied   = false;
+    let currentDelivery = 'standard';
+    let currentPayment  = 'upi';
+
+    /* ──────────────────────────────────────────
+       2. LOAD CART FROM LOCALSTORAGE
+    ────────────────────────────────────────── */
+    function loadCart() {
+      try {
+        const raw = localStorage.getItem(CART_KEY);
+        cart = raw ? JSON.parse(raw) : [];
+      } catch (e) {
+        cart = [];
+      }
+      if (!Array.isArray(cart) || cart.length === 0) {
+        window.location.href = 'products.html';
+        return false;
+      }
+      return true;
+    }
+
+    /* ──────────────────────────────────────────
+       3. GET PRODUCT DATA
+    ────────────────────────────────────────── */
+    function getProductById(id) {
+      if (typeof PRODUCTS !== 'undefined' && Array.isArray(PRODUCTS)) {
+        return PRODUCTS.find(function (p) {
+          return String(p.id) === String(id);
+        }) || null;
+      }
+      return null;
+    }
+
+    /* ──────────────────────────────────────────
+       4. RENDER ORDER ITEMS
+    ────────────────────────────────────────── */
+    function renderOrderItems() {
+      var list = document.getElementById('orderItemsList');
+      list.innerHTML = '';
+      subtotal = 0;
+
+      cart.forEach(function (cartItem) {
+        var product = getProductById(cartItem.id);
+        var name  = product ? product.name  : (cartItem.name  || 'Product');
+        var price = product ? (product.salePrice || product.price) : (cartItem.price || 0);
+        var image = product ? product.image : (cartItem.image || '');
+        var qty   = cartItem.qty || cartItem.quantity || 1;
+        var size  = cartItem.size || '';
+        var lineTotal = price * qty;
+        subtotal += lineTotal;
+
+        var el = document.createElement('div');
+        el.className = 'order-item';
+        el.innerHTML =
+          '<div class="order-item__img-wrap">' +
+            (image
+              ? '<img class="order-item__img" src="' + escHtml(image) + '" alt="' + escHtml(name) + '" loading="lazy" />'
+              : '<div class="order-item__img shimmer"></div>') +
+            '<span class="order-item__qty-badge">' + qty + '</span>' +
+          '</div>' +
+          '<div class="order-item__info">' +
+            '<div class="order-item__name">' + escHtml(name) + '</div>' +
+            '<div class="order-item__meta">' +
+              (size ? 'Size: ' + escHtml(String(size)) : '') +
+            '</div>' +
+          '</div>' +
+          '<div class="order-item__price">₹' + fmt(lineTotal) + '</div>';
+
+        list.appendChild(el);
+      });
+
+      updateTotals();
+    }
+
+    /* ──────────────────────────────────────────
+       5. UPDATE SHIPPING / TOTALS
+    ────────────────────────────────────────── */
+    function calcShipping() {
+      if (currentDelivery === 'express') {
+        return SHIP_EXPRESS;
+      }
+      return subtotal >= FREE_SHIP_MIN ? 0 : SHIP_STANDARD;
+    }
+
+    function updateStandardPriceLabel() {
+      var el = document.getElementById('standardPrice');
+      if (!el) return;
+      if (subtotal >= FREE_SHIP_MIN) {
+        el.textContent = 'FREE';
+        el.classList.add('free');
+      } else {
+        el.textContent = '₹' + SHIP_STANDARD;
+        el.classList.remove('free');
+      }
+    }
+
+    function updateTotals() {
+      shippingCost = calcShipping();
+      updateStandardPriceLabel();
+
+      var base = subtotal + shippingCost;
+      if (couponApplied) {
+        discountAmt = Math.round(subtotal * COUPON_PCT / 100);
+      } else {
+        discountAmt = 0;
+      }
+      var total = base - discountAmt;
+
+      document.getElementById('summarySubtotal').textContent  = '₹' + fmt(subtotal);
+      document.getElementById('summaryShipping').textContent  = shippingCost === 0 ? 'FREE' : '₹' + fmt(shippingCost);
+      document.getElementById('summaryTotal').textContent     = '₹' + fmt(total);
+
+      var discRow = document.getElementById('discountRow');
+      if (couponApplied) {
+        discRow.style.display = 'flex';
+        document.getElementById('summaryDiscount').textContent = '-₹' + fmt(discountAmt);
+      } else {
+        discRow.style.display = 'none';
+      }
+    }
+
+    /* ──────────────────────────────────────────
+       6. DELIVERY METHOD SELECTION
+    ────────────────────────────────────────── */
+    function initDeliveryOptions() {
+      var radios = document.querySelectorAll('input[name="deliveryMethod"]');
+      radios.forEach(function (r) {
+        r.addEventListener('change', function () {
+          currentDelivery = this.value;
+          document.querySelectorAll('.delivery-option').forEach(function (el) {
+            el.classList.remove('selected');
+          });
+          var lbl = this.closest('.delivery-option');
+          if (lbl) lbl.classList.add('selected');
+          updateTotals();
+        });
+      });
+    }
+
+    /* ──────────────────────────────────────────
+       7. PAYMENT METHOD SELECTION (expand cards)
+    ────────────────────────────────────────── */
+    window.selectPayment = function (method) {
+      currentPayment = method;
+      var map = {
+        upi:        'paymentUpiWrap',
+        card:       'paymentCardWrap',
+        netbanking: 'paymentNetbankWrap',
+        cod:        'paymentCodWrap',
+      };
+      Object.keys(map).forEach(function (key) {
+        var wrap = document.getElementById(map[key]);
+        if (!wrap) return;
+        var radio = wrap.querySelector('input[type="radio"]');
+        if (key === method) {
+          wrap.classList.add('selected');
+          if (radio) radio.checked = true;
+        } else {
+          wrap.classList.remove('selected');
+          if (radio) radio.checked = false;
+        }
+      });
+    };
+
+    /* ──────────────────────────────────────────
+       8. COUPON CODE
+    ────────────────────────────────────────── */
+    function initCoupon() {
+      document.getElementById('applyCoupon').addEventListener('click', function () {
+        var input = document.getElementById('couponInput');
+        var msg   = document.getElementById('couponMsg');
+        var code  = input.value.trim().toUpperCase();
+
+        if (code === COUPON_CODE) {
+          if (couponApplied) {
+            msg.textContent = 'Coupon already applied!';
+            msg.className   = 'coupon-msg error';
+          } else {
+            couponApplied   = true;
+            input.classList.remove('error');
+            input.classList.add('success');
+            msg.textContent = '🎉 10% discount applied!';
+            msg.className   = 'coupon-msg success';
+            updateTotals();
+          }
+        } else if (code === '') {
+          msg.textContent = 'Please enter a coupon code.';
+          msg.className   = 'coupon-msg error';
+          input.classList.add('error');
+        } else {
+          couponApplied   = false;
+          input.classList.remove('success');
+          input.classList.add('error');
+          msg.textContent = 'Invalid coupon code.';
+          msg.className   = 'coupon-msg error';
+          updateTotals();
+        }
+      });
+    }
+
+    /* ──────────────────────────────────────────
+       9. FORM VALIDATION
+    ────────────────────────────────────────── */
+    function showError(fieldId, errorId, show) {
+      var field = document.getElementById(fieldId);
+      var err   = document.getElementById(errorId);
+      if (!field || !err) return;
+      if (show) {
+        field.classList.add('error');
+        err.classList.add('visible');
+      } else {
+        field.classList.remove('error');
+        err.classList.remove('visible');
+      }
+    }
+
+    function validateForm() {
+      var ok = true;
+
+      /* Email */
+      var email = document.getElementById('email').value.trim();
+      var emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      var emailOk = emailRe.test(email);
+      showError('email', 'emailError', !emailOk);
+      if (!emailOk) ok = false;
+
+      /* First / Last name */
+      var fn = document.getElementById('firstName').value.trim();
+      showError('firstName', 'firstNameError', fn.length < 1);
+      if (fn.length < 1) ok = false;
+
+      var ln = document.getElementById('lastName').value.trim();
+      showError('lastName', 'lastNameError', ln.length < 1);
+      if (ln.length < 1) ok = false;
+
+      /* Address */
+      var addr1 = document.getElementById('address1').value.trim();
+      showError('address1', 'address1Error', addr1.length < 3);
+      if (addr1.length < 3) ok = false;
+
+      /* City */
+      var city = document.getElementById('city').value.trim();
+      showError('city', 'cityError', city.length < 1);
+      if (city.length < 1) ok = false;
+
+      /* State */
+      var state = document.getElementById('state').value;
+      showError('state', 'stateError', !state);
+      if (!state) ok = false;
+
+      /* PIN Code */
+      var pin = document.getElementById('pinCode').value.trim();
+      var pinOk = /^\d{6}$/.test(pin);
+      showError('pinCode', 'pinCodeError', !pinOk);
+      if (!pinOk) ok = false;
+
+      /* Phone */
+      var phone = document.getElementById('phone').value.trim().replace(/[\s\-]/g, '');
+      var phoneOk = /^(\+91)?[6-9]\d{9}$/.test(phone);
+      showError('phone', 'phoneError', !phoneOk);
+      if (!phoneOk) ok = false;
+
+      /* Payment-specific */
+      if (currentPayment === 'upi') {
+        var upi = document.getElementById('upiId').value.trim();
+        var upiOk = /^[\w.\-]{3,}@[a-zA-Z]{2,}$/.test(upi);
+        showError('upiId', 'upiIdError', !upiOk);
+        if (!upiOk) ok = false;
+      }
+
+      if (currentPayment === 'card') {
+        var cn = document.getElementById('cardNumber').value.replace(/\s/g, '');
+        var cnOk = /^\d{16}$/.test(cn);
+        showError('cardNumber', 'cardNumberError', !cnOk);
+        if (!cnOk) ok = false;
+
+        var exp = document.getElementById('cardExpiry').value.trim();
+        var expOk = /^(0[1-9]|1[0-2])\s*\/\s*\d{2}$/.test(exp);
+        showError('cardExpiry', 'cardExpiryError', !expOk);
+        if (!expOk) ok = false;
+
+        var cvv = document.getElementById('cardCvv').value.trim();
+        var cvvOk = /^\d{3,4}$/.test(cvv);
+        showError('cardCvv', 'cardCvvError', !cvvOk);
+        if (!cvvOk) ok = false;
+      }
+
+      if (currentPayment === 'netbanking') {
+        var bank = document.getElementById('bankSelect').value;
+        showError('bankSelect', 'bankSelectError', !bank);
+        if (!bank) ok = false;
+      }
+
+      /* COD limit */
+      if (currentPayment === 'cod') {
+        var total = subtotal + shippingCost - discountAmt;
+        if (total > 5000) {
+          alert('Cash on Delivery is only available for orders up to ₹5,000. Please choose another payment method.');
+          ok = false;
+        }
+      }
+
+      return ok;
+    }
+
+    /* ──────────────────────────────────────────
+       10. PLACE ORDER
+    ────────────────────────────────────────── */
+    function placeOrder() {
+      if (!validateForm()) {
+        /* Scroll to first error */
+        var firstErr = document.querySelector('.error');
+        if (firstErr) {
+          firstErr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+        return;
+      }
+
+      var orderNumber = 'SOLE' + Math.floor(100000 + Math.random() * 900000);
+      var total       = subtotal + shippingCost - discountAmt;
+
+      var order = {
+        orderNumber:   orderNumber,
+        timestamp:     new Date().toISOString(),
+        items:         cart,
+        subtotal:      subtotal,
+        shipping:      shippingCost,
+        discount:      discountAmt,
+        total:         total,
+        address: {
+          firstName:   document.getElementById('firstName').value.trim(),
+          lastName:    document.getElementById('lastName').value.trim(),
+          address1:    document.getElementById('address1').value.trim(),
+          address2:    document.getElementById('address2').value.trim(),
+          city:        document.getElementById('city').value.trim(),
+          state:       document.getElementById('state').value,
+          pinCode:     document.getElementById('pinCode').value.trim(),
+          phone:       document.getElementById('phone').value.trim(),
+          email:       document.getElementById('email').value.trim(),
+        },
+        paymentMethod: currentPayment,
+        deliveryMethod: currentDelivery,
+      };
+
+      try {
+        localStorage.setItem(ORDER_KEY, JSON.stringify(order));
+      } catch (e) { /* storage full, proceed anyway */ }
+
+      window.location.href = 'order-success.html';
+    }
+
+    /* ──────────────────────────────────────────
+       UTILITY: escape HTML
+    ────────────────────────────────────────── */
+    function escHtml(str) {
+      return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+    }
+
+    /* UTILITY: format numbers with Indian comma style */
+    function fmt(n) {
+      return Number(n).toLocaleString('en-IN');
+    }
+
+    /* ──────────────────────────────────────────
+       CARD NUMBER FORMATTER
+    ────────────────────────────────────────── */
+    function initCardFormat() {
+      var cn = document.getElementById('cardNumber');
+      if (!cn) return;
+      cn.addEventListener('input', function () {
+        var v = this.value.replace(/\D/g, '').substring(0, 16);
+        this.value = v.replace(/(.{4})/g, '$1 ').trim();
+      });
+
+      var exp = document.getElementById('cardExpiry');
+      if (!exp) return;
+      exp.addEventListener('input', function () {
+        var v = this.value.replace(/\D/g, '').substring(0, 4);
+        if (v.length >= 3) {
+          this.value = v.substring(0, 2) + ' / ' + v.substring(2);
+        } else {
+          this.value = v;
+        }
+      });
+    }
+
+    /* ──────────────────────────────────────────
+       INIT
+    ────────────────────────────────────────── */
+    function init() {
+      if (!loadCart()) return;
+      renderOrderItems();
+      initDeliveryOptions();
+      initCoupon();
+      initCardFormat();
+
+      document.getElementById('placeOrderBtn').addEventListener('click', placeOrder);
+
+      /* Live update on delivery change (already handled in initDeliveryOptions) */
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', init);
+    } else {
+      init();
+    }
+
+  }());
+  </script>
+</body>
+</html>
