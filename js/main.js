@@ -218,7 +218,7 @@
         <img src="${product.image}" alt="${product.name}" loading="lazy" />
         <div class="product-card__badges">${badgeHTML}</div>
         <div class="product-card__actions">
-          <button class="wishlist-btn" data-id="${product.id}" aria-label="Wishlist"><i class="fas fa-heart"></i></button>
+          <button class="wishlist-btn" data-id="${product.id}" aria-label="Wishlist"><i class="far fa-heart"></i></button>
           <button class="quick-view-btn" data-id="${product.id}" aria-label="Quick view"><i class="fas fa-eye"></i></button>
         </div>
       </div>
@@ -289,7 +289,7 @@
 
   // ---- FEATURED GRID ----
   const featuredGrid = $('#featuredGrid');
-  if (featuredGrid && window.PRODUCTS) {
+  if (featuredGrid && typeof PRODUCTS !== 'undefined') {
     const featured = PRODUCTS.slice(0, 8);
     featured.forEach((p, i) => {
       const card = createProductCard(p);
@@ -300,7 +300,7 @@
 
   // ---- ARRIVALS GRID ----
   const arrivalsGrid = $('#arrivalsGrid');
-  if (arrivalsGrid && window.PRODUCTS) {
+  if (arrivalsGrid && typeof PRODUCTS !== 'undefined') {
     PRODUCTS.filter(p => p.new).forEach(p => {
       arrivalsGrid.appendChild(createProductCard(p));
     });
@@ -358,12 +358,14 @@
   }
 
   // ---- INTERSECTION OBSERVER ----
+  let countersAnimated = false;
   const io = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
-        // Trigger counters if stats section
-        if (entry.target.classList.contains('stats')) {
+        // Trigger counters if stats section - guard with flag so it only fires once
+        if (entry.target.classList.contains('stats') && !countersAnimated) {
+          countersAnimated = true;
           animateCounters();
           io.unobserve(entry.target);
         }
